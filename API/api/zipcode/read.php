@@ -6,7 +6,7 @@
     try{
         $zipcode = new zipcode($plants);
         
-        $output = $zipcode->read(readWhereClause());
+        $output = $zipcode->read(readWhereClause("zipcode"));
 
         if($output != null) {
             //set response code - 200 OK

@@ -52,7 +52,7 @@ class zipcode{
         if($num>0){
             //if $id is specified we also need to return a list of studies associated with it
             //other wise, just return the entire list of arms
-            if(!empty($_GET)){
+            if(!empty($_GET) && $where != ""){
                 //arm array
                 $output_arr = array();
 

@@ -94,7 +94,7 @@ function isJson($string)
     return json_last_error() === JSON_ERROR_NONE;
 }
 
-function readWhereClause($table = null)
+function readWhereClause($table)
 {   
     //$table is an optional paramter that only needs to be provided when using . notation in the query with JOIN statements
     //exclRmvFlag is provided when the API request wants to exclude results where isRemovedFlag is NOT "1"
@@ -104,30 +104,44 @@ function readWhereClause($table = null)
         "exclRmvFlag" => array("")
     ); 
 
+    //Table => Column names
+    //These combinations are intentionally excluded from where clause construction in order to limit operation time on server
+    //Not all endpoints need to be able to provide filters for all columns, this increases runtime of requests
+    $ignoreWhereArgs = array(
+        "zipcode" => array("plantingZoneSub", "warmPlantEnd", "plantingZone")
+    );
+
     $where_args = array();
     foreach ($_GET as $key=>$val) {
-        if ($val != "" && $key != "table") {
-            if(!in_array($table, $lookUp["exclRmvFlag"]) && $key == "exclRmvFlag" && $val == "true") {
-                $where_args[] = 'isRemovedFlag <=> "0" OR isRemovedFlag <=> NULL OR isRemovedFlag <=> ""';
-            }
-            else if($table == null) {
-                $where_args[] = $key.'="'.$val.'"';
-            }
-            else if(array_key_exists($table, $lookUp)) {
-                if(!in_array($key, $lookUp[$table])) {
-                    $where_args[] = $table.'.'.$key.'="'.$val.'"';
+        if(!in_array($key, $ignoreWhereArgs[$table])) {
+            if ($val != "" && $key != "table") {
+                if(!in_array($table, $lookUp["exclRmvFlag"]) && $key == "exclRmvFlag" && $val == "true") {
+                    $where_args[] = 'isRemovedFlag <=> "0" OR isRemovedFlag <=> NULL OR isRemovedFlag <=> ""';
                 }
-                else {
+                else if($table == null) {
                     $where_args[] = $key.'="'.$val.'"';
                 }
+                else if(array_key_exists($table, $lookUp) && !array_key_exists($key, $ignoreWhereArgs[$table])) {
+                    if(!in_array($key, $lookUp[$table])) {
+                        $where_args[] = $table.'.'.$key.'="'.$val.'"';
+                    }
+                    else {
+                        $where_args[] = $key.'="'.$val.'"';
+                    }
+                }
+                else {
+                    $where_args[] = $table.'.'.$key.'="'.$val.'"';
+                }
             }
-            else {
-                $where_args[] = $table.'.'.$key.'="'.$val.'"';
-            }
-       }
-     } 
+        }
+    } 
 
-     $output = implode(' OR ', $where_args);
+    if(!empty($where_args)) {
+        $output = implode(' OR ', $where_args);
+    }
+    else {
+        $output = null;
+    }
 
-     return $output;
+    return $output;
 }
