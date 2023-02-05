@@ -29,8 +29,6 @@
     include_once '../../config/database.php';
     include_once '../../functions/myFunctions.php';
     include_once '../../config/errorLogs/errorLogs.php';
-    
-    include_once '../../model/history.php';
 
     if($requestMethod != "GET") {
         checkInputType(file_get_contents("php://input"));
@@ -42,10 +40,8 @@
     //$admin = $adminDB->connect();
     $plants = $plantData->connect();
 
-    //API Auth Time
-    require_once 'authExecute.php';
-
-    $idList = array();
+    //Auth Time
+    //require_once 'authExecute.php';
 
     $id = null;
 

@@ -93,3 +93,41 @@ function isJson($string)
     json_decode($string);
     return json_last_error() === JSON_ERROR_NONE;
 }
+
+function readWhereClause($table = null)
+{   
+    //$table is an optional paramter that only needs to be provided when using . notation in the query with JOIN statements
+    //exclRmvFlag is provided when the API request wants to exclude results where isRemovedFlag is NOT "1"
+
+    //This is utilized for allowing custom filters by API when they exist as part of a join and not the default table
+    $lookUp = array(
+        "exclRmvFlag" => array("")
+    ); 
+
+    $where_args = array();
+    foreach ($_GET as $key=>$val) {
+        if ($val != "" && $key != "table") {
+            if(!in_array($table, $lookUp["exclRmvFlag"]) && $key == "exclRmvFlag" && $val == "true") {
+                $where_args[] = 'isRemovedFlag <=> "0" OR isRemovedFlag <=> NULL OR isRemovedFlag <=> ""';
+            }
+            else if($table == null) {
+                $where_args[] = $key.'="'.$val.'"';
+            }
+            else if(array_key_exists($table, $lookUp)) {
+                if(!in_array($key, $lookUp[$table])) {
+                    $where_args[] = $table.'.'.$key.'="'.$val.'"';
+                }
+                else {
+                    $where_args[] = $key.'="'.$val.'"';
+                }
+            }
+            else {
+                $where_args[] = $table.'.'.$key.'="'.$val.'"';
+            }
+       }
+     } 
+
+     $output = implode(' OR ', $where_args);
+
+     return $output;
+}

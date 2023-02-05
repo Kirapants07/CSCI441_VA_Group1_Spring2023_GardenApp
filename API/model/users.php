@@ -16,8 +16,6 @@ class users{
     //object properties
     private $id;
 
-    private $globalCUD;
-
     //constructor with $db as database connection
     public function __construct($db) {
         $this->conn = $db; // <- should have passed in the ADMIN db connection
