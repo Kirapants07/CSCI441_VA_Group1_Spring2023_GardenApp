@@ -11,6 +11,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+SET GLOBAL general_log = 'ON';
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -43,9 +45,9 @@ CREATE TABLE `growingtime` (
 CREATE TABLE `plant` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `type` char(1) NOT NULL,
-  `coldWarmPlant` char(1) NOT NULL,
-  `plantingDateOffestType` char(1) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `coldWarmPlant` varchar(4) NOT NULL,
+  `plantingDateOffestType` varchar(20) NOT NULL,
   `plantingDateOffestDays` mediumint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,7 +61,7 @@ CREATE TABLE `plantgrowingrelationship` (
   `id` char(36) NOT NULL,
   `plantIdOne` char(36) NOT NULL,
   `plantIdTwo` char(36) NOT NULL,
-  `relationship` char(1) NOT NULL
+  `relationship` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
