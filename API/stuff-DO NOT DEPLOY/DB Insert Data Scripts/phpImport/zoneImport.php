@@ -8,22 +8,9 @@
 $plantData = new Database("plantData");
 $plants = $plantData->connect();
 
-$count = 0;
-
 $start = microtime(true);
 
-$query = "INSERT plantingzone  
-            (id, number)  
-            VALUES  
-            (uuid(), '3'),
-            (uuid(), '4'),
-            (uuid(), '5'),
-            (uuid(), '6'),
-            (uuid(), '7'),
-            (uuid(), '8'),
-            (uuid(), '9'),
-            (uuid(), '10'),
-            (uuid(), '11');";
+$query = file_get_contents('data/zoneData/plantingzone.sql');
 
 //prepare query statement
 $stmt = $plants->prepare($query);
