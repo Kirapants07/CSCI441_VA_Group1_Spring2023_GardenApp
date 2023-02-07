@@ -12,6 +12,10 @@ require_once("../../../config/database.php");
 //1. Drop database and re-create database
 require_once("01_freshDB.php");
 
+//Instance of Database class for plantData class used from here forward 02-07
+$plantData = new Database("plantData");
+$plants = $plantData->connect();
+
 //2. Create fresh tables from empty plant database
 require_once("02_tableCreation.php");
 
@@ -22,5 +26,10 @@ require_once("03_zoneImport.php");
 require_once("04_zipCodeImport.php");
 
 //5. Import Plants
+require_once("05_plantImport.php");
 
 //6. Import plantgrowingrelationship
+require_once("06_plantRelationshipImport.php");
+
+//7. Import plantingInstructions
+require_once("07_plantingInstructionsImport.php");

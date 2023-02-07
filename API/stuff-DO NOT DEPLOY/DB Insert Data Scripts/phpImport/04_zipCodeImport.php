@@ -3,11 +3,6 @@
         die('Direct access not permitted');
     }
 
-//Script used to import all zip codes iteratively
-
-$plantData = new Database("plantData");
-$plants = $plantData->connect();
-
 $list = array("zipcode1.sql", "zipcode2.sql", "zipcode3.sql", "zipcode4.sql", "zipcode5.sql", "zipcode6.sql", "zipcode7.sql", "zipcode8.sql");
 
 $start = microtime(true);

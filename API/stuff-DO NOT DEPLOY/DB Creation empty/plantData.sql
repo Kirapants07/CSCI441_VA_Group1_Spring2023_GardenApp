@@ -3,15 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2023 at 02:07 AM
+-- Generation Time: Feb 07, 2023 at 03:24 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-SET GLOBAL general_log = 'ON';
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,29 +24,17 @@ SET GLOBAL general_log = 'ON';
 -- --------------------------------------------------------
 
 --
--- Table structure for table `growingtime`
---
-
-CREATE TABLE `growingtime` (
-  `id` char(36) NOT NULL,
-  `plantId` char(36) NOT NULL,
-  `daysToGermination` mediumint(1) NOT NULL,
-  `datesToHarvest` mediumint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `plant`
 --
 
 CREATE TABLE `plant` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `pluralName` varchar(255) NOT NULL,
   `type` varchar(20) NOT NULL,
-  `coldWarmPlant` varchar(4) NOT NULL,
-  `plantingDateOffestType` varchar(20) NOT NULL,
-  `plantingDateOffestDays` mediumint(1) DEFAULT NULL
+  `spacing` varchar(50) DEFAULT NULL,
+  `germinationInformation` varchar(255) NOT NULL,
+  `harvestInformation` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -67,13 +53,18 @@ CREATE TABLE `plantgrowingrelationship` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plantgrowingzone`
+-- Table structure for table `plantinginstructions`
 --
 
-CREATE TABLE `plantgrowingzone` (
+CREATE TABLE `plantinginstructions` (
   `id` char(36) NOT NULL,
   `plantId` char(36) NOT NULL,
-  `plantingZoneId` char(36) NOT NULL
+  `zoneId` char(36) NOT NULL,
+  `plantingZoneSub` char(1) NOT NULL,
+  `season` varchar(6) NOT NULL,
+  `plantingType` varchar(20) NOT NULL,
+  `startDate` varchar(5) NOT NULL,
+  `endDate` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -84,11 +75,7 @@ CREATE TABLE `plantgrowingzone` (
 
 CREATE TABLE `plantingzone` (
   `id` char(36) NOT NULL,
-  `number` char(2) NOT NULL,
-  `coldPlantStart` datetime NULL,
-  `coldPlantEnd` datetime NULL,
-  `warmPlantStart` datetime NULL,
-  `warmPlantEnd` datetime NULL
+  `number` char(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -110,13 +97,6 @@ CREATE TABLE `zipcode` (
 --
 
 --
--- Indexes for table `growingtime`
---
-ALTER TABLE `growingtime`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `plantId` (`plantId`);
-
---
 -- Indexes for table `plant`
 --
 ALTER TABLE `plant`
@@ -131,12 +111,12 @@ ALTER TABLE `plantgrowingrelationship`
   ADD KEY `plantIdTwo` (`plantIdTwo`);
 
 --
--- Indexes for table `plantgrowingzone`
+-- Indexes for table `plantinginstructions`
 --
-ALTER TABLE `plantgrowingzone`
+ALTER TABLE `plantinginstructions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `plantId` (`plantId`),
-  ADD KEY `plantingZoneId` (`plantingZoneId`);
+  ADD KEY `zoneId` (`zoneId`);
 
 --
 -- Indexes for table `plantingzone`
@@ -156,12 +136,6 @@ ALTER TABLE `zipcode`
 --
 
 --
--- Constraints for table `growingtime`
---
-ALTER TABLE `growingtime`
-  ADD CONSTRAINT `growingtime_ibfk_1` FOREIGN KEY (`plantId`) REFERENCES `plant` (`id`);
-
---
 -- Constraints for table `plantgrowingrelationship`
 --
 ALTER TABLE `plantgrowingrelationship`
@@ -169,11 +143,11 @@ ALTER TABLE `plantgrowingrelationship`
   ADD CONSTRAINT `plantgrowingrelationship_ibfk_2` FOREIGN KEY (`plantIdTwo`) REFERENCES `plant` (`id`);
 
 --
--- Constraints for table `plantgrowingzone`
+-- Constraints for table `plantinginstructions`
 --
-ALTER TABLE `plantgrowingzone`
-  ADD CONSTRAINT `plantgrowingzone_ibfk_1` FOREIGN KEY (`plantId`) REFERENCES `plant` (`id`),
-  ADD CONSTRAINT `plantgrowingzone_ibfk_2` FOREIGN KEY (`plantingZoneId`) REFERENCES `plantingzone` (`id`);
+ALTER TABLE `plantinginstructions`
+  ADD CONSTRAINT `plantinginstructions_ibfk_1` FOREIGN KEY (`plantId`) REFERENCES `plant` (`id`),
+  ADD CONSTRAINT `plantinginstructions_ibfk_2` FOREIGN KEY (`zoneId`) REFERENCES `plantingzone` (`id`);
 
 --
 -- Constraints for table `zipcode`
