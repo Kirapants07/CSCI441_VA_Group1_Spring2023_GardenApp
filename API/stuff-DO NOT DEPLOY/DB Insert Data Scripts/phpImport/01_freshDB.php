@@ -25,7 +25,7 @@ $stmt = $newDB->prepare($query2);
 //execute query
 $stmt->execute();
 
-echo "DATABASE DUMPED AND RECREATED... Task Completed in: ".microtime(true) - $start." seconds.";
+echo "01 - DATABASE DUMPED AND RECREATED... Task Completed in: ".microtime(true) - $start." seconds.";
 print_r("\n");
 
 

@@ -13,7 +13,7 @@ $stmt = $plants->prepare($query);
 //execute query
 $stmt->execute();
 
-echo "ZONES IMPORT COMPELTE... Task Completed in: ".microtime(true) - $start." seconds.";
+echo "03 - ZONES IMPORT COMPELTE... Task Completed in: ".microtime(true) - $start." seconds.";
 print_r("\n");
 
 ?>

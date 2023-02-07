@@ -13,7 +13,7 @@ $stmt = $plants->prepare($query);
 //execute query
 $stmt->execute();
 
-echo "TABLE RECREATION COMPLETE... Task Completed in: ".microtime(true) - $start." seconds.";
+echo "02 - TABLE RECREATION COMPLETE... Task Completed in: ".microtime(true) - $start." seconds.";
 print_r("\n");
 
 ?>

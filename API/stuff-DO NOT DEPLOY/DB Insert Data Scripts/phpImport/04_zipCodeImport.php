@@ -18,7 +18,7 @@ foreach($list as $filename) {
     $stmt->execute();
 }
 
-echo "ZIP CODE IMPORT COMPLETE... Task Completed in: ".microtime(true) - $start." seconds.";
+echo "04 - ZIP CODE IMPORT COMPLETE... Task Completed in: ".microtime(true) - $start." seconds.";
 print_r("\n");
 
 ?>
