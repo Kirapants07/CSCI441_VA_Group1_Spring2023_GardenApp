@@ -105,8 +105,7 @@ function readWhereClause($table)
     ); 
 
     //Table => Column names
-    //These combinations are intentionally excluded from where clause construction in order to limit operation time on server
-    //Not all endpoints need to be able to provide filters for all columns, this increases runtime of requests
+    //This list includes all table name, column combos that are permitted to be queried via URL params on an API request
     $ignoreWhereArgs = array(
         "zipcode" => array("id", "zipcode"),
         "plantingzone" => array("id", "number")
