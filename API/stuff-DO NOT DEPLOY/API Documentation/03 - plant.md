@@ -1,6 +1,6 @@
 ---> /plant <---
 
-By default /plantingzone requires no URL params. This could potentially be a large query based on the amount of plants. However, with no URL params provided this request passes the query directly back to the requestor with no formatting. Quickest way to get a list of ALL plansts supported by the database. List is ordered by name automatically.
+By default /plant requires no URL params. This could potentially be a large query based on the amount of plants. However, with no URL params provided this request passes the query directly back to the requestor with no formatting. Quickest way to get a list of ALL plansts supported by the database. List is ordered by name automatically.
 
 Example output:
 [
