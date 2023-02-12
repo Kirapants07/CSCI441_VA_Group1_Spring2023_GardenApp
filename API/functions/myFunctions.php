@@ -108,7 +108,8 @@ function readWhereClause($table)
     //These combinations are intentionally excluded from where clause construction in order to limit operation time on server
     //Not all endpoints need to be able to provide filters for all columns, this increases runtime of requests
     $ignoreWhereArgs = array(
-        "zipcode" => array("plantingZoneSub", "warmPlantEnd", "plantingZone")
+        "zipcode" => array("plantingZoneSub", "warmPlantEnd", "plantingZone"),
+        "plantingzone" => array()
     );
 
     $where_args = array();
