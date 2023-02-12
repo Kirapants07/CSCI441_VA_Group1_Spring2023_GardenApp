@@ -11,6 +11,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+SET GLOBAL general_log = 'ON';
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -63,8 +65,8 @@ CREATE TABLE `plantinginstructions` (
   `plantingZoneSub` char(1) NOT NULL,
   `season` varchar(6) NOT NULL,
   `plantingType` varchar(20) NOT NULL,
-  `startDate` varchar(5) NOT NULL,
-  `endDate` varchar(5) NOT NULL
+  `startDate` varchar(6) NOT NULL,
+  `endDate` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

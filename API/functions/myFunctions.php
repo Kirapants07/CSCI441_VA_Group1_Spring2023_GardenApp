@@ -106,14 +106,15 @@ function readWhereClause($table)
 
     //Table => Column names
     //This list includes all table name, column combos that are permitted to be queried via URL params on an API request
-    $ignoreWhereArgs = array(
+    $allowWhereArgs = array(
         "zipcode" => array("id", "zipcode"),
-        "plantingzone" => array("id", "number")
+        "plantingzone" => array("id", "number"),
+        "plant" => array("id", "name", "pluralName", "type")
     );
 
     $where_args = array();
     foreach ($_GET as $key=>$val) {
-        if(in_array($key, $ignoreWhereArgs[$table])) {
+        if(in_array($key, $allowWhereArgs[$table])) {
             if ($val != "" && $key != "table") {
                 if(!in_array($table, $lookUp["exclRmvFlag"]) && $key == "exclRmvFlag" && $val == "true") {
                     $where_args[] = 'isRemovedFlag <=> "0" OR isRemovedFlag <=> NULL OR isRemovedFlag <=> ""';
@@ -121,7 +122,7 @@ function readWhereClause($table)
                 else if($table == null) {
                     $where_args[] = $key.'="'.$val.'"';
                 }
-                else if(array_key_exists($table, $lookUp) && !array_key_exists($key, $ignoreWhereArgs[$table])) {
+                else if(array_key_exists($table, $lookUp) && !array_key_exists($key, $allowWhereArgs[$table])) {
                     if(!in_array($key, $lookUp[$table])) {
                         $where_args[] = $table.'.'.$key.'="'.$val.'"';
                     }

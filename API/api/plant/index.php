@@ -4,6 +4,6 @@
     define('MyConst', TRUE);
 
     include_once '../../model/plant.php';
-    include_once '../../config/indexHeader.php';
+    include_once '../../config/indexHeaderR.php';
 
 ?>
