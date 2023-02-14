@@ -24,7 +24,6 @@ Example output:
     }
 ]
 
-<blurb>
 Plant table is the central hub of the database and has two connecting tables. plantinginstructions and plantingrelationship.
 
 Allowed URL params: id, name, pluralname, type

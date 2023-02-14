@@ -109,7 +109,8 @@ function readWhereClause($table)
     $allowWhereArgs = array(
         "zipcode" => array("id", "zipcode"),
         "plantingzone" => array("id", "number"),
-        "plant" => array("id", "name", "pluralName", "type")
+        "plant" => array("id", "name", "pluralName", "type"),
+        "plantgrowingrelationship" => array("id", "name", "plant1Name", "plant2Name")
     );
 
     $where_args = array();
