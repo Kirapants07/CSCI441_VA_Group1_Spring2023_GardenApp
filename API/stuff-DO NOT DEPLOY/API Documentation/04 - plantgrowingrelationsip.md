@@ -2,6 +2,8 @@
 
 By default /plantgrowingrelationship requires no URL params. This table contains direct relationships between plants that either help or are to be avoided.
 
+Note: in the below queries plantName(s) have been joined in from their parent tables to make the data more legible.
+
 Allowed URL params: id, name
 Optional params with special functionality: plant1Name, plant2Name (case sensitive)
 
