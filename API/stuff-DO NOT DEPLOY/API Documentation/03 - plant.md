@@ -87,7 +87,7 @@ Example output:
                 "plantId": "4c6f7098-aaf4-11ed-99d2-244bfe7dd4fe",
                 "zoneId": "428894a9-aaf4-11ed-99d2-244bfe7dd4fe",
                 "plantingZoneSub": "a",
-                "season": "sprint",
+                "season": "spring",
                 "plantingType": "transplant",
                 "startDate": "1-Apr",
                 "endDate": "30-Apr"
