@@ -32,7 +32,7 @@ Example output:
         "zoneId": "46fadc3b-ab01-11ed-99d2-244bfe7dd4fe",
         "zoneNumber": "11",
         "plantingZoneSub": "b",
-        "season": "sprint",
+        "season": "spring",
         "plantingType": "transplant",
         "startDate": "1-Apr",
         "endDate": "30-Apr"
@@ -54,7 +54,7 @@ Example output:
         "zoneId": "46fadc3b-ab01-11ed-99d2-244bfe7dd4fe",
         "zoneNumber": "11",
         "plantingZoneSub": "b",
-        "season": "sprint",
+        "season": "spring",
         "plantingType": "transplant",
         "startDate": "1-Apr",
         "endDate": "30-Apr"
@@ -86,7 +86,7 @@ Example output:
         "zoneId": "46fadc3b-ab01-11ed-99d2-244bfe7dd4fe",
         "zoneNumber": "11",
         "plantingZoneSub": "b",
-        "season": "sprint",
+        "season": "spring",
         "plantingType": "transplant",
         "startDate": "1-Apr",
         "endDate": "30-Apr"
