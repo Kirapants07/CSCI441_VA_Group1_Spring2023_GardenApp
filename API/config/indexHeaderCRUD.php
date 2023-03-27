@@ -40,9 +40,6 @@
     $admin = $adminDB->connect();
     $plants = $plantData->connect();
 
-    //Auth Time
-    //require_once 'authExecute.php';
-
     $id = null;
 
     if ($requestMethod === 'GET') {

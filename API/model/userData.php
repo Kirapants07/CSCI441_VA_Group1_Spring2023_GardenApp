@@ -37,7 +37,12 @@ class userdata {
         //execute query
         $stmt->execute();
 
-        return $stmt;
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        else{
+            return null;
+        }
     }
 
     function create($userid, $data){
