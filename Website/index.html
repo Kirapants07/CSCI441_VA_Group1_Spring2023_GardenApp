@@ -5,8 +5,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garden App</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="App.css" />
 </head>
 <body>
-    
+    <header>
+        <!-- NEED TO MAKE NAV BAR RESPONSIVE FOR MOBILE -->
+        <nav>
+            <a href="#home">
+                <span class="material-icons md-36">
+                    home
+                </span>
+            </a>
+            <form class="search-container">
+                  <input type="text" placeholder="Zipcode" name="search">
+                  <button type="submit">
+                    <span class="material-icons">
+                        search
+                    </span>
+                  </button>
+            </form>
+            <form class="search-container">
+                <input type="text" placeholder="Plant Name" name="search">
+                <button type="submit">
+                  <span class="material-icons">
+                      search
+                  </span>
+                </button>
+            </form>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <!-- <i id ="accountcircle" class="material-icons md-36">account_circle</i> -->
+                    Account
+                    <span class="material-icons md-24">expand_more</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Account Information</a>
+                    <a href="#">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>
+            Design your Garden.<br>Fast. Easy.<br>
+        </h1>
+        <p>
+            Find the best sowing dates for your area, browse growing information for each plant, and track what you've planted. 
+        </p>
+        <form class="search-container">
+            <input type="text" placeholder="Zipcode" name="search">
+            <button type="submit">
+              <span class="material-icons">
+                  search
+              </span>
+            </button>
+        </form>
+        <button class ="signup">Sign Up</button>
+    </main>
+
+<footer>
+  <p>&copy 2023 Daniel Dietrich, Gavin Cyr, Kira Luethe, Richard Williams, & Todd Wood</p>
+  <p></p>
+</footer>
+
 </body>
 </html>
