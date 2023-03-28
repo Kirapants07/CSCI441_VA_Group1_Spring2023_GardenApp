@@ -6,10 +6,11 @@ import Plant from "./plantClass.js";
 
 
 const plantList = [];
+//Function to fetch and get plants
 const getPlants = async (plantName) => {
     console.log(plantName);
     let jsonData = null;
-
+    // check for the type of request
     if (!plantName){
         const response = await fetch ("http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/");
         jsonData = await response.json();
@@ -22,14 +23,20 @@ const getPlants = async (plantName) => {
             response = await fetch (`http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/?pluralName=${plantName}`);
             
             jsonData = await response.json();
+
             if (jsonData.message){
             console.log(jsonData.message);
+            const div = document.createElement("div");
+            const fail = document.createTextNode("No Plants Where Found");
+            div.append(fail);
+            let main = document.querySelector('main');
+            main.append(div);
             return false
             }
         }
     }
 
-
+    //
     for (let i = 0; i < jsonData.length; i++){
         let temp = jsonData[i];
         const newPlant = new Plant(temp.id,temp.name,temp.type,temp.spacing,temp.germinationInformation,temp.harvestInformation);
@@ -44,7 +51,10 @@ const displayPlants = async (plantName) => {
     let main = document.querySelector('main');
     let element = (plantList) ? await createPlant(plantList) : 'There are no Plants to Display'; 
     
-    main.append(element);
+    if (element)
+    {
+        main.append(element);
+    }
     return element;
 
 }
@@ -52,7 +62,8 @@ const displayPlants = async (plantName) => {
 
 async function createPlant(plants)
 {
-    if (!plants) return;
+    if (plants.length <= 0) return;
+
     let fragment = document.createDocumentFragment();
     let table = document.createElement("table");
     table.setAttribute("id", "pTable");
