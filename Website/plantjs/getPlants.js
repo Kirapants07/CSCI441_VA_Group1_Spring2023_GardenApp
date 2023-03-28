@@ -10,7 +10,7 @@ const plantList = [];
 const getPlants = async (plantName) => {
     console.log(plantName);
     let jsonData = null;
-    // check for the type of request
+    // check for the type of request and get data
     if (!plantName){
         const response = await fetch ("http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/");
         jsonData = await response.json();
@@ -24,9 +24,11 @@ const getPlants = async (plantName) => {
             
             jsonData = await response.json();
 
+            // populate a fail message
             if (jsonData.message){
             console.log(jsonData.message);
             const div = document.createElement("div");
+            div.setAttribute("id", "noFoundDiv");
             const fail = document.createTextNode("No Plants Where Found");
             div.append(fail);
             let main = document.querySelector('main');
@@ -36,7 +38,7 @@ const getPlants = async (plantName) => {
         }
     }
 
-    //
+    // create an array of plant objects
     for (let i = 0; i < jsonData.length; i++){
         let temp = jsonData[i];
         const newPlant = new Plant(temp.id,temp.name,temp.type,temp.spacing,temp.germinationInformation,temp.harvestInformation);
@@ -44,12 +46,14 @@ const getPlants = async (plantName) => {
     }
 }
 
+// Place the plants onto the website
 const displayPlants = async (plantName) => {
 
     await getPlants(plantName);
     
     let main = document.querySelector('main');
-    let element = (plantList) ? await createPlant(plantList) : 'There are no Plants to Display'; 
+
+    let element = (plantList) ? await createPlantTable(plantList) : null; 
     
     if (element)
     {
@@ -59,19 +63,23 @@ const displayPlants = async (plantName) => {
 
 }
 
-
-async function createPlant(plants)
+// Create a plant table
+async function createPlantTable(plants)
 {
     if (plants.length <= 0) return;
 
     let fragment = document.createDocumentFragment();
+    
+    //create table
     let table = document.createElement("table");
     table.setAttribute("id", "pTable");
     fragment.appendChild(table);
 
+    // create header row
     let title = document.createElement("tr");
     table.appendChild(title);
 
+    // create header elements
     let tName = document.createElement("th");
     tName.textContent = "Name";
     let tType = document.createElement("th");
@@ -89,6 +97,7 @@ async function createPlant(plants)
     title.appendChild(tGerm);
     title.appendChild(tHarv);
 
+    // create table elements
     for(let i=0; i < plants.length; i++)
     {
         let plant = plants[i];
@@ -117,16 +126,22 @@ async function createPlant(plants)
     return fragment;
 }
 
+// add element listener
 document.getElementById("pSearch").addEventListener("submit", (e) => {
     e.preventDefault();
     plantList.length = 0; // reset plantlist
-    const pTable = document.getElementById("pTable");
+    const pTable = document.getElementById("pTable"); // check for table
+    const noFou = document.getElementById("noFoundDiv");
     if(pTable)
     {
-        pTable.parentNode.removeChild(pTable);
+        pTable.parentNode.removeChild(pTable); // delete existing table
     }
-    let inputName = document.getElementById("pName").value;
-    displayPlants(inputName);    
+    if(noFou)
+    {
+        noFou.parentNode.removeChild(noFou); // delete not found message
+    }
+    let inputName = document.getElementById("pName").value; // get user value
+    displayPlants(inputName);  // call for display
 }); 
 
 
