@@ -4,14 +4,15 @@ if(!defined('MyConst')) {
     die('Direct access not permitted');
 }
 
-include_once '../../functions/globalCUD.php';
+include_once 'userData.php';
 
 class users{
 
     //database connection and table name
     private $conn;
     private $tableName = "users";
-    private $pepper = "UNIQUE PASSWORD PEPPER GOES HERE, I KNOW THIS IS OVERKILL";
+
+    private $userData;
 
     //object properties
     private $id;
@@ -19,16 +20,71 @@ class users{
     //constructor with $db as database connection
     public function __construct($db) {
         $this->conn = $db; // <- should have passed in the ADMIN db connection
+
+        $this->userData = new userdata($db);
     }
 
     public function getConn() {
         return $this->conn;
     }
 
+    function read($un) {
+        //Note: This endpoint will return all user data except the password, this is by design.
+        //Refer to api documentation for further specifics
+
+        $query = 'SELECT id, userName, email, firstName, lastName, fullName, isRemovedFlag, 
+                         hasAccessFlag, isAdminFlag, createdDate, lastModifiedDate
+                    FROM users
+                    WHERE userName = "'.$un.'"';
+
+        //prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        //execute query
+        $stmt->execute();
+
+        $num = $stmt->rowCount();
+
+        //check if more than 0 record found
+        if($num>0){
+            //arm array
+            $output_arr = array();
+
+            //retrive arm table conents
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                
+                //extract row
+                extract($row);
+                $item = array(
+                    "id" => $id,
+                    "userName" => $userName,
+                    "email" => $email,
+                    "firstName" => $firstName,
+                    "lastName" => $lastName,
+                    "fullName" => $fullName,
+                    "isRemovedFlag" => $isRemovedFlag,
+                    "hasAccessFlag" => $hasAccessFlag,
+                    "isAdminFlag" => $isAdminFlag,
+                    "createdDate" => $createdDate,
+                    "lastModifiedDate" => $lastModifiedDate,
+                    "userData" => $this->userData->read($id)
+                );
+
+                array_push($output_arr, $item);
+            }
+
+            return $output_arr;
+        }
+        else {
+            return null;
+        }
+    }
+
     function create($array) {
 
-        //need to pepper and hash the provided password for database storage
-        $this->passwordPrep($array);
+        ///AUTH PASSWORD PREP
+
+        //END AUTH PASSWORD PREP
 
         //Check that your user already exist!
         if(array_key_exists('userName', $array) && $this->userExists($array['userName'])){ 
@@ -46,9 +102,10 @@ class users{
 
     function update($array) {
         
-        //need to pepper and hash the provided password for database storage
         if(array_key_exists('password', $array)) {
-            $this->passwordPrep($array);
+            ///AUTH PASSWORD PREP
+
+            //END AUTH PASSWORD PREP
         }
         
         //Check that your user actually exist!
@@ -67,19 +124,6 @@ class users{
             //Update user in admin.users
         }
 
-    }
-    
-    private function passwordPrep(&$array) {
-        //Takes provided password and preps for data base entry, modifies array with correct column name as well
-
-        //https://www.php.net/manual/en/function.password-hash.php
-        //https://www.php.net/manual/en/faq.passwords.php
-
-        $pw_peppered = hash_hmac("sha256", $array['password'], $this->pepper);
-        $hashed_password = password_hash($pw_peppered, PASSWORD_DEFAULT);
-
-        $array['passwordHash'] = $hashed_password;
-        unset($array['password']);
     }
 
     private function userExists($userName) {
