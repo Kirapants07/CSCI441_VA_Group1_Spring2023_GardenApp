@@ -8,6 +8,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="App.css" />
+    <script type="module" src="./plantjs/getPlants.js"></script> 
 </head>
 <body>
     <header>
@@ -26,8 +27,8 @@
                     </span>
                   </button>
             </form>
-            <form class="search-container">
-                <input type="text" placeholder="Plant Name" name="search">
+            <form id="pSearch" class="search-container">
+                <input type="text" placeholder="Plant Name" name="search" id="pName">
                 <button type="submit">
                   <span class="material-icons">
                       search
