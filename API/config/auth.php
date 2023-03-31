@@ -4,7 +4,54 @@ if(!defined('MyConst')) {
     die('Direct access not permitted');
 }
 
-include_once '../../config/errorLogs/errorLogs.php';
+include_once('database.php');
+
+class userAuth{
+    
+    private $pepper = "THIS IS THE USER AUTH PEPPER. ";
+
+    function hashPass($password)
+    {
+        return hash_hmac("sha256", $password, $this->pepper);
+        
+    }
+
+    function validateUser($enteredUsername, $enteredPass)
+    {
+            //Get user data
+            $adminDB = new Database("userAdmin");
+            $admin = $adminDB->connect();
+            $query = 'SELECT userName, passwordHash
+            FROM users
+            WHERE userName = "'.$enteredUsername.'"';
+
+            $statement = $adminDB->conn->prepare($query);
+
+             //execute query
+             $statement->execute();
+
+            if($statement->rowCount() > 0)
+                $user_info = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            else
+                $user_info = null;
+             
+            //Hash Password
+            $hashed_entered_pass = $this->hashPass($enteredPass);
+            if($user_info != null){ 
+                //Compare Hashed password to passwordHash
+                if($user_info[0]['passwordHash'] == crypt($hashed_entered_pass, $user_info[0]['passwordHash'])) { //If the passwords are the same
+                    return true;
+                }
+                else{ //If the passwords are not equal
+                    return false;
+                }
+            }
+            else{ //If user_data == null, return false
+                return false;
+            }
+    
+    }
+}
 
 class Auth {
 
