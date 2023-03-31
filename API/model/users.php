@@ -5,6 +5,7 @@ if(!defined('MyConst')) {
 }
 
 include_once 'userData.php';
+include_once '../../functions/globalCUD.php';
 
 class users{
 
@@ -14,6 +15,8 @@ class users{
 
     private $userData;
 
+    private $globalCUD;
+
     //object properties
     private $id;
 
@@ -22,6 +25,7 @@ class users{
         $this->conn = $db; // <- should have passed in the ADMIN db connection
 
         $this->userData = new userdata($db);
+        $this->globalCUD = new globalCUD();
     }
 
     public function getConn() {
@@ -83,7 +87,7 @@ class users{
     function create($array) {
 
         ///AUTH PASSWORD PREP
-
+            //Until auth is done properly, I will be storing string passwords in database.
         //END AUTH PASSWORD PREP
 
         //Check that your user already exist!
@@ -97,10 +101,13 @@ class users{
         }
         else{
             //Write new user to admin.users
+            return $this->globalCUD->CreateGlobal($array, $this->conn, $this->tableName, $this->id);
         }
     }
 
     function update($array) {
+        
+        $this->id = $array['id'];
         
         if(array_key_exists('password', $array)) {
             ///AUTH PASSWORD PREP
@@ -109,7 +116,7 @@ class users{
         }
         
         //Check that your user actually exist!
-        if(array_key_exists('id', $array) && !id_Exists($array['id'], "apiusers", $this->getConn())){ 
+        if(array_key_exists('id', $array) && !id_Exists($array['id'], "users", $this->conn)){ 
                 
             $currRet['success'] = "false";
             $currRet['message'] = "apiuser id Not Found";
@@ -119,9 +126,16 @@ class users{
         }
         else{
 
-            $this->id = $array['id'];
+            if(array_key_exists('userData', $array)) {
+                if($this->userData->read($this->id) != null) {
+                    $this->userData->update($this->id, $array['userData']);
+                }
+                else {
+                    $this->userData->create($this->id, $array['userData']);
+                }
+            }
             
-            //Update user in admin.users
+            return $this->globalCUD->UpdateGlobal($array, $this->conn, $this->tableName);
         }
 
     }

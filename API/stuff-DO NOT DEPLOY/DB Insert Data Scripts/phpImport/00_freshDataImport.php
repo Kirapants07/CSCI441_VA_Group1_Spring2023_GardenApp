@@ -17,7 +17,7 @@ $plantData = new Database("plantData");
 $plants = $plantData->connect();
 
 //2. Create fresh tables from empty plant database
-require_once("02_tableCreation.php");
+require_once("02_plantTableCreation.php");
 
 //3. Import Zones
 require_once("03_zoneImport.php");
@@ -33,3 +33,13 @@ require_once("06_plantRelationshipImport.php");
 
 //7. Import plantingInstructions
 require_once("07_plantingInstructionsImport.php");
+
+//Instance of Database class for useradmin class used from here forward 08-09
+$admin = new Database("useradmin");
+$adm = $admin->connect();
+
+//8. Create fresh tables for users
+require_once("08_userTableAdminCreation.php");
+
+//9. Import dummy users and data for testing
+require_once("09_userDataImport.php");
