@@ -14,37 +14,54 @@
     <header>
         <!-- NEED TO MAKE NAV BAR RESPONSIVE FOR MOBILE -->
         <nav>
+            <!-- home button -->
             <a href="../index.html">
                 <span class="material-icons md-36">
                     home
                 </span>
             </a>
+
+            <!-- zipcode Searchbar -->
             <form class="search-container">
-                  <input type="text" placeholder="Zipcode" name="search">
+                  <input type="text" placeholder="Zipcode" name="search" class="zipSearch searchBar">
                   <button type="submit">
                     <span class="material-icons">
                         search
                     </span>
                   </button>
             </form>
+
+            <!-- plant name searchbar -->
             <form id="pSearch" class="search-container">
-                <input type="text" placeholder="Plant Name" name="search" id="pName">
+                <input type="text" placeholder="Plant Name" name="search" class="plantSearch searchBar"id="pName">
                 <button type="submit">
                   <span class="material-icons">
                       search
                   </span>
                 </button>
             </form>
-            <div class="dropdown">
+            
+            <!-- Account Dropdown -->
+            <div class="dropdown logged-in">
                 <button class="dropbtn">
                     <!-- <i id ="accountcircle" class="material-icons md-36">account_circle</i> -->
                     Account
                     <span class="material-icons md-24">expand_more</span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="userInfo.html">Account Information</a>
+                    <a href="#">Sign Out</a>
+                    <a href="./userInfo.html">Account Information</a>
                 </div>
             </div>
+
+            <a href="#" class="logged-out navRight">
+                Log In
+            </a>
+
+            <a href="./sign-up.html" class="logged-out navRight">
+                Sign Up
+            </a>
+
         </nav>
     </header>
 

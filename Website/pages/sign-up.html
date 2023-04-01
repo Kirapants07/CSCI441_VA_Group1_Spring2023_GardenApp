@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden App</title>
+    <title>Sign Up</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="App.css" />
+    <link rel="stylesheet" type="text/css" href="../App.css" />
     <script type="module" src="./plantjs/getPlants.js"></script> 
-    
 </head>
 <body>
     <header>
         <!-- NEED TO MAKE NAV BAR RESPONSIVE FOR MOBILE -->
         <nav>
             <!-- home button -->
-            <a href="index.html">
+            <a href="../index.html">
                 <span class="material-icons md-36">
                     home
                 </span>
@@ -51,7 +50,7 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="#">Sign Out</a>
-                    <a href="pages/userInfo.html">Account Information</a>
+                    <a href="./userInfo.html">Account Information</a>
                 </div>
             </div>
 
@@ -59,7 +58,7 @@
                 Log In
             </a>
 
-            <a href="./pages/sign-up.html" class="logged-out navRight">
+            <a href="./sign-up.html" class="logged-out navRight">
                 Sign Up
             </a>
 
@@ -68,24 +67,35 @@
 
     <main>
         <h1>
-            Design your Garden.<br>Fast. Easy.<br>
+            Sign Up
         </h1>
-        <p>
-            Find the best sowing dates for your area, browse growing information for each plant, and track what you've planted. 
-        </p>
+        <!-- Sign up form -->
+        <form id="signup-form">
+            <div class="input-field">
+                <label for="signup-firstname">First Name</label>
+                <input type="text" id="signup-firstname" required class="userInfo">
+            </div>
+            <div class="input-field">
+                <label for="signup-lastname">Last Name</label>
+                <input type="text" id="signup-lastname" required class="userInfo">
+            </div>
+            <div class="input-field">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required class="userInfo">
+            </div>
+            <div class="input-field">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required class="userInfo">
+            </div>
+            <div>
+                <p>Already have an Account? 
+                    <a href="./login.hmtl">Log In</a>
+                    <button class ="signupbtn" id="signupbtn">Sign Up</button>
+                </p>
+            </div>
 
-        <!-- Zipcode Searchbar (second one, on page) -->
-        <form class="search-container">
-            <input type="text" placeholder="Zipcode" name="search" class="zipSearch searchBar">
-            <button type="submit">
-              <span class="material-icons">
-                  search
-              </span>
-            </button>
         </form>
-
-        <!-- Sign up Button (on page) -->
-        <button class ="signupbtn logged-out" id="signupbtn">Sign Up</button>
+        
     </main>
 
 <footer>
@@ -96,6 +106,6 @@
 </footer>
 
 <!-- loads only items in class "logged-in" or "logged-out" -->
-<script src="./ui.js"></script>
+<script src="../ui.js"></script>
 </body>
 </html>

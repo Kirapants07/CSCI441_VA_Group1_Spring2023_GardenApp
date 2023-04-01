@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+  }
+  
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: auto;
@@ -54,6 +58,12 @@ nav a:hover, .dropdown:hover .dropbtn {
     background-color: rgb(44, 114, 57);
 }
 
+.navRight {
+    float: right;
+    font-size: 30px;
+    padding: 17px 16px;
+}
+
 /*dropdown box (hidden unless on hover)*/
 .dropdown-content {
     display: none;
@@ -89,9 +99,8 @@ nav a:hover, .dropdown:hover .dropbtn {
 }
 
 /* Style the search box inside the navigation bar */
-input[type=text] {
+.searchBar[type=text] {
     float: left;
-    padding: 10px;
     outline: none;
     border: none;
     margin-top: 10px;
@@ -101,8 +110,14 @@ input[type=text] {
     background: #f5f5f5;
   }
 
+  input{
+    width: 100%;
+    padding: 12px;
+    resize: vertical;
+  }
+
   input[type=text]:hover {
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);    
 }
 
 button {
@@ -127,8 +142,10 @@ button {
     border-radius: 0px 25px 25px 0px;
   }
 
-.signup {
+.signupbtn {
     border-radius: 25px 25px 25px 25px;
+    margin-top: 40px;
+    margin-bottom: 100px;
     margin-left: 100px;
 }
 
@@ -145,6 +162,11 @@ footer {
     color: white;
     text-align: center;
     font-size: 14px;
+  }
+.userInfo{
+    border: none;
+    border-bottom: 2px solid rgb(44, 114, 57);
+    margin: 10;
   }
 
 /*Google Icons Formatting*/
