@@ -71,15 +71,14 @@
     else{
 
         if($requestMethod == "POST"){
-            
             require_once("create.php");
         }
         else if($requestMethod == "PUT"){
             include_once("update.php");
         }
-        else if($requestMethod == "DELETE"){
+        /*else if($requestMethod == "DELETE"){
             include_once("delete.php");
-        }
+        }*/
         else if($requestMethod != "OPTIONS"){
             //set response code - 404 not found
             http_response_code(404);

@@ -1,6 +1,8 @@
 <?php 
-require_once ("../../API/api/user/index.php");
-
+$formUserName = filter_input(INPUT_POST, 'username', FILTER_VALIDATE_INT);
+$formPassword= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+include_once ("../../API/api/user/index.php");
+include_once '../../API/config/errorLogs/errorLogs.php';
 
 $message="";
 $formUserName = filter_input(INPUT_POST, 'username', FILTER_VALIDATE_INT);
@@ -21,10 +23,12 @@ else{ //If username is valid
     }
     else
     {
-        // ESTABLISH SESSION VARIABLE WITH USER ID NUMBER 
+        // ESTABLISH SESSION VARIABLE WITH USERNAME 
+        session_start();
+        $_SESSION["username"] = $formUserName;
         //INCLUDE GARDEN MANAGMENT PAGE
         $message = "Login Successful!"; //MESSAGE FOR TESTING
-        include ("login.php");//Display login page
+        include ("index.html");//Display login page
     }
     }
 

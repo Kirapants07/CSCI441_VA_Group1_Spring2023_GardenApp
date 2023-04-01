@@ -8,24 +8,24 @@
 $create = new Database();
 $newDB = $create->createDatabase();
 
-$query1 = "DROP DATABASE plantData;";
-$query2 = "CREATE DATABASE plantData;";
 
+$arrayQueries = array("DROP DATABASE plantData;",
+                 "CREATE DATABASE plantData;",
+                 "DROP DATABASE useradmin",
+                 "CREATE DATABASE useradmin");
 $start = microtime(true);
 
-//prepare query statement
-$stmt = $newDB->prepare($query1);
+foreach($arrayQueries as $query)
+{
 
-//execute query
-$stmt->execute();
+    //prepare query statement
+    $stmt = $newDB->prepare($query);
+    
+    //execute query
+    $stmt->execute();
+}
 
-//prepare query statement
-$stmt = $newDB->prepare($query2);
-
-//execute query
-$stmt->execute();
-
-echo "01 - DATABASE DUMPED AND RECREATED... Task Completed in: ".microtime(true) - $start." seconds.";
+echo "01 - DATABASES DUMPED AND RECREATED... Task Completed in: ".microtime(true) - $start." seconds.";
 print_r("\n");
 
 
