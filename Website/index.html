@@ -8,8 +8,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="App.css" />
-    <script type="module" src="./plantjs/getPlants.js"></script> 
-    
+    <script type="module" src="./plantjs/getPlants.js"></script>
+    <script type="module" src="./zipcodejs/getZipcode.js"></script>
 </head>
 <body>
     <header>
@@ -23,8 +23,8 @@
             </a>
 
             <!-- zipcode Searchbar -->
-            <form class="search-container">
-                  <input type="text" placeholder="Zipcode" name="search" class="zipSearch searchBar">
+            <form id="zSearch" class="search-container">
+                  <input type="text" placeholder="Zipcode" name="zipcode" id="zName">
                   <button type="submit">
                     <span class="material-icons">
                         search
