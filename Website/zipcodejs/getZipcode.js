@@ -1,10 +1,10 @@
-//getZipcodes
+//getZipcode
 //Gavin J Cyr
-//Gets and Displays Zipcodes
+//Gets and Displays Zipcode
 
 import Zipcode from "./zipcodeClass.js";
 
-//Function to fetch and get Zipcodes
+//Function to fetch and get Zipcode
 let newZipcode;
 const getZipcodes = async (zipcodeName) => {
     console.log(zipcodeName);
@@ -41,7 +41,7 @@ const getZipcodes = async (zipcodeName) => {
     newZipcode = new Zipcode(temp.id, temp.zipCode, temp.plantingZone[0].number, temp.plantingZoneSub, temp.tempRange);
 }
 
-// Place the Zipcodes onto the website
+// Place the Zipcode onto the website
 const displayZipcode = async (zipcodeName) => {
 
     await getZipcodes(zipcodeName);
