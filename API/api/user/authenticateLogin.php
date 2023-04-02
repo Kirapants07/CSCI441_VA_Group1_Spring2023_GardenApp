@@ -1,6 +1,6 @@
 <?php 
-$formUserName = filter_input(INPUT_POST, 'signup-email', FILTER_SANITIZE_STRING);
-$formPassword= filter_input(INPUT_POST, 'signup-password', FILTER_SANITIZE_STRING);
+$formUserName = filter_input(INPUT_POST, 'login-username', FILTER_SANITIZE_STRING);
+$formPassword= filter_input(INPUT_POST, 'login-password', FILTER_SANITIZE_STRING);
 
 include_once ("index.php");
 include_once '../../config/errorLogs/errorLogs.php';

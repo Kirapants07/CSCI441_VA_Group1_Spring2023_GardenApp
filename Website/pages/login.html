@@ -49,7 +49,7 @@
                     <span class="material-icons md-24">expand_more</span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Sign Out</a>
+                    <a href="../UserAuth/signOut.php">Sign Out</a>
                     <a href="./userInfo.html">Account Information</a>
                 </div>
             </div>
@@ -72,12 +72,12 @@
         <!-- Sign up form -->
         <form id="login-form" method="post" action="../../API/api/user/authenticateLogin.php">
             <div class="input-field">
-                    <label for="signup-email" class="visually-hidden">Email</label>
-                    <input name ="signup-email" id="signup-email" placeholder="Username" required class="userInfo">
+                    <label for="login-username" class="visually-hidden">UserName</label>
+                    <input name ="login-username" id="login-username" type="text" placeholder="Username" required class="userInfo">
             </div>
             <div class="input-field">
-                    <label for="signup-password" class="visually-hidden">Password</label>
-                    <input name ="signup-password" type="password" id="signup-password" placeholder="Password" required class="userInfo">
+                    <label for="login-password" class="visually-hidden">Password</label>
+                    <input name ="login-password" type="password" id="login-password" placeholder="Password" required class="userInfo">
             </div>
             <div>
                 <p>New to Garden App? 
