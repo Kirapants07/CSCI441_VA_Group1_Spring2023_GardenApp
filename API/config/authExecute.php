@@ -17,7 +17,7 @@ $uAuth= new userAuth;
 if(!$uAuth->validateUser($formUserName, $formPassword)) //If credentials are invalid.
 {
     $message = "Invlaid Username/Password. Please Try again."; //Set message to inform user of invalid credentials
-        header ("Location: ../../../Website/pages/login.html");//Display login page
+        header ("Location: ../../../Website/pages/login.html?sig=IC");//Display login page
         die(); //Prevents further access
 }
 //If credentials are valid, system continues as normal

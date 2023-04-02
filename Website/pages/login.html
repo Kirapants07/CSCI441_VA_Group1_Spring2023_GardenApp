@@ -69,6 +69,25 @@
         <h1>
             Log In
         </h1>
+
+        <div id = "Message"> </div>
+        <script>
+            var messDiv = document.getElementById('Message');//Get the location of the Div for feedback message
+            message="";
+
+            var url = window.location.href; //Get URL
+            var sig = /sig=([^&]+)/.exec(url)[1]; //Get the value of sig from URL
+            if(typeof sig !== 'undefined'){ ///If sig is defined
+                if(sig == "IC"){ //If sig=IC (AKA Invalid Credentials)
+                    message = '<h3>Invalid Credentials. Please try again.</h3>';
+                }
+                if (sig == "SO"){//IF sig=SO (AKA Sign Out)
+                    message = '<h3>Sign Out Successful!</h3>';
+                }
+                messDiv.insertAdjacentHTML('afterbegin', message); //Add message to feedback message div
+            }
+        </script>
+        
         <!-- Sign up form -->
         <form id="login-form" method="post" action="../../API/api/user/authenticateLogin.php">
             <div class="input-field">

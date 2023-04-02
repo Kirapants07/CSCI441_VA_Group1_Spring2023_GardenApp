@@ -13,7 +13,7 @@ $message="";
 if (!isset($_SESSION["username"]))//If Authentication failed
 {
    $message = "Invlaid Credentials. Please Try again."; //Set message to inform user of invalid username
-   include('../../../Website/pages/login.html');
+   include('../../../Website/pages/login.html?sig=IC');
 }
 else{ //If authentication was successful
 
