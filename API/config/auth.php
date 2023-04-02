@@ -18,6 +18,7 @@ class userAuth{
 
     function validateUser($enteredUsername, $enteredPass)
     {
+        
             //Get user data
             $adminDB = new Database("userAdmin");
             $admin = $adminDB->connect();
@@ -39,7 +40,9 @@ class userAuth{
             $hashed_entered_pass = $this->hashPass($enteredPass);
             if($user_info != null){ 
                 //Compare Hashed password to passwordHash
-                if($user_info[0]['passwordHash'] == crypt($hashed_entered_pass, $user_info[0]['passwordHash'])) { //If the passwords are the same
+                if($user_info[0]['passwordHash'] == $hashed_entered_pass) { //If the passwords are the same
+                    session_start();
+                    $_SESSION["username"] = $enteredUsername;
                     return true;
                 }
                 else{ //If the passwords are not equal
