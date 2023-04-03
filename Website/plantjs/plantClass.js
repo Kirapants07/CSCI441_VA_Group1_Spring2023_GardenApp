@@ -1,5 +1,6 @@
 //PlantClass
 //By Todd M. Wood
+// currently a container for plants, will eventually be used to expand functionality
 
 export default class Plant {
 

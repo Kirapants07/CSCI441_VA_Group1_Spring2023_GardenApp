@@ -13,7 +13,7 @@ const plantList = [];
 const getPlants = async (plantName) => {
     //set to lowercase for easy compares
     plantName = plantName.toLowerCase();
-    console.log(plantName);
+
     let jsonData = null;
     let type = 'name';
 
@@ -22,12 +22,18 @@ const getPlants = async (plantName) => {
     // check for type
     if (!plantName){
         type = null;
-    }
-    else if (plantName == 'fruit' || plantName == 'vegetable' || plantName == 'herb')
+    } 
+    else if (plantName == 'fruit' || plantName == 'vegetable' || plantName == 'herb' || plantName == 'fruits' || plantName == 'vegetables' || plantName == 'herbs')
     {
         type = 'type';
-    }
 
+
+        if (plantName == 'fruits' ) { plantName = 'fruit'; }
+        else if (plantName == 'vegetables') {plantName = 'vegetable';}
+        else if (plantName == 'herbs') {plantName = 'herb';}
+        
+    }
+    
     
     url = host(type,plantName);
     let response = await fetch (url);
