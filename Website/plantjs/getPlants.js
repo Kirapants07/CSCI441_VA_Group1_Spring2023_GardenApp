@@ -3,40 +3,58 @@
 //Gets and Displays Plants
 
 import Plant from "./plantClass.js";
+import host from './hostUrl.js';
+
+let url = null;
 
 
 const plantList = [];
 //Function to fetch and get plants
 const getPlants = async (plantName) => {
+    //set to lowercase for easy compares
+    plantName = plantName.toLowerCase();
     console.log(plantName);
     let jsonData = null;
+    let type = 'name';
+
     // check for the type of request and get data
+    // if no name provided
+    // check for type
     if (!plantName){
-        const response = await fetch ("http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/");
-        jsonData = await response.json();
+        type = null;
     }
-    else{
-        let response = await fetch (`http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/?name=${plantName}`);
+    else if (plantName == 'fruit' || plantName == 'vegetable' || plantName == 'herb')
+    {
+        type = 'type';
+    }
 
-        jsonData = await response.json();
-        if (jsonData.message){
-            response = await fetch (`http://localhost/garden/CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/?pluralName=${plantName}`);
+    
+    url = host(type,plantName);
+    let response = await fetch (url);
+
+    jsonData = await response.json();
+    //if there is a message then nothing was found
+    if (jsonData.message){
+        // check for plurals
+        type = 'pluralName';
+        url = host(type,plantName);
+        response = await fetch (url);
             
-            jsonData = await response.json();
+        jsonData = await response.json();
 
-            // populate a fail message
-            if (jsonData.message){
-            console.log(jsonData.message);
-            const div = document.createElement("div");
-            div.setAttribute("id", "noFoundDiv");
-            const fail = document.createTextNode("No Plants Where Found");
-            div.append(fail);
-            let main = document.querySelector('main');
-            main.append(div);
-            return false
-            }
+        // populate a fail message
+        if (jsonData.message){
+        console.log(jsonData.message);
+        const div = document.createElement("div");
+        div.setAttribute("id", "noFoundDiv");
+        const fail = document.createTextNode("No Plants Were Found");
+        div.append(fail);
+        let main = document.querySelector('main');
+        main.append(div);
+        return false
         }
     }
+
 
     // create an array of plant objects
     for (let i = 0; i < jsonData.length; i++){
@@ -45,6 +63,7 @@ const getPlants = async (plantName) => {
         plantList.push(newPlant);   
     }
 }
+
 
 // Place the plants onto the website
 const displayPlants = async (plantName) => {
@@ -115,6 +134,7 @@ async function createPlantTable(plants)
         germ.textContent =  plant.getGermination();
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
+        
 
         newRow.appendChild(name);
         newRow.appendChild(type);
