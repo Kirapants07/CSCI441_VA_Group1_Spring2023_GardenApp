@@ -3,7 +3,7 @@
 
 // set params
 const mainHost = "localhost";
-const mainPath = "CSCI441_VA_Group1_Spring2023_GardenApp/API/api/plant/";
+const mainPath = "CSCI441_VA_Group1_Spring2023_GardenApp/1_code/API/api/plant/";
 const header = "http://";
 
 //function to create the url
