@@ -58,8 +58,9 @@ const getPlants = async (plantName) => {
 
     // create an array of plant objects
     for (let i = 0; i < jsonData.length; i++){
-        let temp = jsonData[i];
+        const temp = jsonData[i];
         const newPlant = new Plant(temp.id,temp.name,temp.type,temp.spacing,temp.germinationInformation,temp.harvestInformation);
+        
         plantList.push(newPlant);   
     }
 }
@@ -120,6 +121,7 @@ async function createPlantTable(plants)
     for(let i=0; i < plants.length; i++)
     {
         let plant = plants[i];
+        let ps = null; // for planting instructions
     
         let newRow = document.createElement("tr"); 
         table.appendChild(newRow);
@@ -134,6 +136,7 @@ async function createPlantTable(plants)
         germ.textContent =  plant.getGermination();
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
+     
         
 
         newRow.appendChild(name);
@@ -141,6 +144,7 @@ async function createPlantTable(plants)
         newRow.appendChild(spacing);
         newRow.appendChild(germ);
         newRow.appendChild(harv);
+
         
     }
     return fragment;
