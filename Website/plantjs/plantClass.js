@@ -10,7 +10,7 @@ export default class Plant {
         this.spacing = plantSpacing;
         this.germ = germination;
         this.harv = harvest;
-        this.ps = plantInstructions;
+    
     }
 
     getId(){
