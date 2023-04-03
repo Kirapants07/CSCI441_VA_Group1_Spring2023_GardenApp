@@ -27,7 +27,7 @@ const getPlants = async (plantName) => {
     {
         type = 'type';
 
-
+        //if type is plural, make non plural
         if (plantName == 'fruits' ) { plantName = 'fruit'; }
         else if (plantName == 'vegetables') {plantName = 'vegetable';}
         else if (plantName == 'herbs') {plantName = 'herb';}
