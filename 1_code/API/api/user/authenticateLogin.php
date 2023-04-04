@@ -1,6 +1,15 @@
 <?php 
-$formUserName = filter_input(INPUT_POST, 'login-username', FILTER_SANITIZE_STRING);
-$formPassword= filter_input(INPUT_POST, 'login-password', FILTER_SANITIZE_STRING);
+/*
+ * Author: Daniel Dietrich
+ * This file recieves the input from the login form and processes it for Authentication.
+ * Once the data is processed, it is passed to index.php, which in turn passes it to executeAuth.php.
+ * The file then checks to see if the session Token 'username' is set, which indicates successful authentication.
+ * If the credentials were valid and authentication was successful, the userID session token is set and the user is directed to the userinfo.php
+ * If the credentials were invalid, the user is directed back to the login.html page with a variable set for the error message.
+ * All tests will be run automatically and results will be displayed in browser.
+ */
+$formUserName = filter_input(INPUT_POST, 'login-username', FILTER_SANITIZE_STRING); //Get username from form
+$formPassword= filter_input(INPUT_POST, 'login-password', FILTER_SANITIZE_STRING);// Get password from form
 
 include_once ("index.php");
 include_once '../../config/errorLogs/errorLogs.php';

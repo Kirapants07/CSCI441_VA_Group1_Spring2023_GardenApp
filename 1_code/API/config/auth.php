@@ -1,5 +1,19 @@
 <?php
 
+/*
+ * Authors: Daniel Dietrich (userAuth class) & Matt Williams (auth class)
+ * This file contains two classes: userAuth and auth
+ * userAuth:
+ *      - This class is used for validating credentials when a user attempts to log in to the app.
+ *      - This class contains:
+ *          --$pepper: A string variable used when hashing the provided user password
+ *          --hashPass(): A method that accepts on string. This method hashed the provided string and returned the result.
+ *          --validateUser(): A method that accepts two strings. This method uses the first string [$enteredUsername] to retrive the corresponding password.
+ *                            The method then uses hashPass() to hash the seconds string [$enteredPassword].
+ *                            The method then tests the results. If no user was found or the passwords to not match, the method returns false.
+ *                            If the passwords match for the provided username, the method returns true.
+ */
+
 if(!defined('MyConst')) {
     die('Direct access not permitted');
 }
