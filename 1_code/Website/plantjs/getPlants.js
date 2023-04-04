@@ -118,10 +118,10 @@ async function createPlantTable(plants)
     tType.textContent = "Type";
     let tSpacing = document.createElement("th");
     tSpacing.textContent = "Spacing";
-    let tHarv = document.createElement("th");
-    tHarv.textContent = "Germination";
     let tGerm = document.createElement("th");
-    tGerm.textContent = "Harvest";
+    tGerm.textContent = "Germination";
+    let tHarv = document.createElement("th");
+    tHarv.textContent = "Harvest";
 
     //append header elements
     title.appendChild(tName);
