@@ -6,6 +6,7 @@ if(!defined('MyConst')) {
 
 include_once 'userData.php';
 include_once '../../functions/globalCUD.php';
+include_once '../../config/auth.php';
 
 class users{
 
@@ -17,6 +18,8 @@ class users{
 
     private $globalCUD;
 
+    private $auth;
+
     //object properties
     private $id;
 
@@ -26,6 +29,7 @@ class users{
 
         $this->userData = new userdata($db);
         $this->globalCUD = new globalCUD();
+        $this->auth = new userAuth();
     }
 
     public function getConn() {
@@ -87,7 +91,9 @@ class users{
     function create($array) {
 
         ///AUTH PASSWORD PREP
-            //Until auth is done properly, I will be storing string passwords in database.
+            $temp = $this->auth->hashPass($array['passwordHash']);
+
+            $array['passwordHash'] = $temp;
         //END AUTH PASSWORD PREP
 
         //Check that your user already exist!
@@ -111,7 +117,9 @@ class users{
         
         if(array_key_exists('password', $array)) {
             ///AUTH PASSWORD PREP
+            $temp = $this->auth->hashPass($array['passwordHash']);
 
+            $array['passwordHash'] = $temp;
             //END AUTH PASSWORD PREP
         }
         
