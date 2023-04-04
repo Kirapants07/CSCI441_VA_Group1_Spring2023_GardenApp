@@ -77,7 +77,7 @@ async function createZipcodeTable(zipcode)
     // create header elements
     let tZipcode = document.createElement("th");
     tZipcode.textContent = "Zipcode";
-    let tplantZone = document.createElement("th");
+    let tplantZone = document.createElement("th"); 
     tplantZone.textContent = "Planting Zone";
     let tZoneSub = document.createElement("th");
     tZoneSub.textContent = "Sub Zone";
@@ -96,6 +96,7 @@ async function createZipcodeTable(zipcode)
     let zip = document.createElement("td");
     zip.textContent =  zipcode.getZipcode();
     let plantZone = document.createElement("td");
+    plantZone.setAttribute("id", "zoneNum");
     plantZone.textContent =  zipcode.getPlantingZone();
     let zoneSub = document.createElement("td");
     zoneSub.textContent =  zipcode.getZoneSub();

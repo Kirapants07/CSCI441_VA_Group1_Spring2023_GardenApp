@@ -10,16 +10,17 @@ let url = null;
 
 const plantList = [];
 //Function to fetch and get plants
-const getPlants = async (plantName) => {
+
+
+const getPlants = async (plantName, zoneNum) => {
     //set to lowercase for easy compares
+    console.log(zoneNum);
     plantName = plantName.toLowerCase();
 
     let jsonData = null;
     let type = 'name';
 
-    // check for the type of request and get data
-    // if no name provided
-    // check for type
+    // check for the type of request
     if (!plantName){
         type = null;
     } 
@@ -34,8 +35,8 @@ const getPlants = async (plantName) => {
         
     }
     
-    
-    url = host(type,plantName);
+    // build the url
+    url = host(type,plantName,zoneNum);
     let response = await fetch (url);
 
     jsonData = await response.json();
@@ -43,7 +44,8 @@ const getPlants = async (plantName) => {
     if (jsonData.message){
         // check for plurals
         type = 'pluralName';
-        url = host(type,plantName);
+        // rebuild the url for plurals
+        url = host(type,plantName, zoneNum);
         response = await fetch (url);
             
         jsonData = await response.json();
@@ -73,14 +75,17 @@ const getPlants = async (plantName) => {
 
 
 // Place the plants onto the website
-const displayPlants = async (plantName) => {
+const displayPlants = async (plantName, zone) => {
 
-    await getPlants(plantName);
+    // call the function to get the plants
+    await getPlants(plantName, zone);
     
+    // grab the main element
     let main = document.querySelector('main');
 
+    // call the function to create the table 
     let element = (plantList) ? await createPlantTable(plantList) : null; 
-    
+    // append the table to the page
     if (element)
     {
         main.append(element);
@@ -94,6 +99,7 @@ async function createPlantTable(plants)
 {
     if (plants.length <= 0) return;
 
+    //create a fragment for the table
     let fragment = document.createDocumentFragment();
     
     //create table
@@ -117,6 +123,7 @@ async function createPlantTable(plants)
     let tGerm = document.createElement("th");
     tGerm.textContent = "Harvest";
 
+    //append header elements
     title.appendChild(tName);
     title.appendChild(tType);
     title.appendChild(tSpacing);
@@ -128,10 +135,12 @@ async function createPlantTable(plants)
     {
         let plant = plants[i];
         let ps = null; // for planting instructions
-    
+        
+        //create the row
         let newRow = document.createElement("tr"); 
         table.appendChild(newRow);
 
+        // create each item in the row
         let name = document.createElement("td");
         name.textContent =  plant.getName();
         let type = document.createElement("td");
@@ -143,8 +152,7 @@ async function createPlantTable(plants)
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
      
-        
-
+        // append row elements
         newRow.appendChild(name);
         newRow.appendChild(type);
         newRow.appendChild(spacing);
@@ -158,7 +166,8 @@ async function createPlantTable(plants)
 
 // add element listener
 document.getElementById("pSearch").addEventListener("submit", (e) => {
-    e.preventDefault();
+
+    e.preventDefault(); // prevent default error
     plantList.length = 0; // reset plantlist
     const pTable = document.getElementById("pTable"); // check for table
     const noFou = document.getElementById("noFoundDiv");
@@ -171,7 +180,17 @@ document.getElementById("pSearch").addEventListener("submit", (e) => {
         noFou.parentNode.removeChild(noFou); // delete not found message
     }
     let inputName = document.getElementById("pName").value; // get user value
-    displayPlants(inputName);  // call for display
+
+    //check to see if the user entered a zone
+    const zoneNum = document.getElementById("zoneNum"); // check for zone
+    
+    let zone = 0; // set a default zone of 0
+    // if there is a zone get the number
+    if (zoneNum)
+    {
+        zone = zoneNum.textContent; 
+    }
+    displayPlants(inputName, zone);  // call for display
 }); 
 
 
