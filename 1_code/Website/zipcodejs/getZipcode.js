@@ -6,11 +6,11 @@ import Zipcode from "./zipcodeClass.js";
 
 //Function to fetch and get Zipcode
 let newZipcode;
-const getZipcodes = async (zipcodeName) => {
-    console.log(zipcodeName);
+export default async function getZipcodes(zipcode) {
+    console.log(zipcode);
     let jsonData = null;
     // check for the type of request and get data
-    if (!zipcodeName){
+    if (!zipcode){
         const div = document.createElement("div");
         div.setAttribute("id", "noFoundDiv");
         const fail = document.createTextNode("Please enter a five digit zipcode.");
@@ -20,7 +20,7 @@ const getZipcodes = async (zipcodeName) => {
         return false;
     }
     else{
-        let response = await fetch (`http://localhost/CSCI441_VA_Group1_Spring2023_GardenApp/1_code/API/api/zipcode/?zipcode=${zipcodeName}`);
+        let response = await fetch (`http://localhost/CSCI441_VA_Group1_Spring2023_GardenApp/1_code/API/api/zipcode/?zipcode=${zipcode}`);
 
         jsonData = await response.json();
         if (jsonData.message){
@@ -39,12 +39,18 @@ const getZipcodes = async (zipcodeName) => {
     }
     let temp = jsonData[0];
     newZipcode = new Zipcode(temp.id, temp.zipCode, temp.plantingZone[0].number, temp.plantingZoneSub, temp.tempRange);
+    const div = document.createElement("div");
+    div.setAttribute("id", "noFoundDiv");
+    const success = document.createTextNode("Search Results:");
+    div.append(success);
+    let main = document.querySelector('main');
+    main.append(div);
 }
 
 // Place the Zipcode onto the website
-const displayZipcode = async (zipcodeName) => {
+const displayZipcode = async (zipcode) => {
 
-    await getZipcodes(zipcodeName);
+    await getZipcodes(zipcode);
     
     let main = document.querySelector('main');
 
