@@ -12,9 +12,9 @@ const plantList = [];
 //Function to fetch and get plants
 
 
-const getPlants = async (plantName, zoneNum) => {
+export default async function getPlants (plantName, zoneNum) {
     //set to lowercase for easy compares
-    console.log(zoneNum);
+    
     plantName = plantName.toLowerCase();
 
     let jsonData = null;
@@ -71,6 +71,13 @@ const getPlants = async (plantName, zoneNum) => {
         
         plantList.push(newPlant);   
     }
+    const div = document.createElement("div");
+    div.setAttribute("id", "noFoundDiv");
+    const success = document.createTextNode("Search Results:");
+    div.append(success);
+    let main = document.querySelector('main');
+    main.append(div);
+    
 }
 
 
