@@ -5,7 +5,9 @@ List of end points:
 /plantgrowingrelationship
 /plantinginstructions
 
-/user (GET, POST, PUT, DELETE)
+/user (GET, POST, PUT)
+
+/userdata (GET, POST, PUT, DELETE)
 
 Note: ALL endpoints return data as an array of JSON objects
 Example:

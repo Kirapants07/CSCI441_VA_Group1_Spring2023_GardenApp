@@ -7,32 +7,30 @@ if(!defined('MyConst')) {
 class userdata {
 
     //database connection and table name
-    private $conn;
+    private $UserConn;
     private $tableName = "userdata";
 
-    //Class is only to be used by the users class to read and write user data to this table.
-    //Data structure was split to ensure that the base user table isnt bloating by XAML style user preferences
+    private $id;
+
+    private $globalCUD;
 
     //object properties
 
     //constructor with $db as database connection
-    public function __construct($db){
-        $this->conn = $db;
-    }
-
-    public function getConn(){
-        return $this->conn;
+    public function __construct($dbus){
+        $this->UserConn = $dbus;
+        $this->globalCUD = new globalCUD();
     }
 
     function read($userid){
         //return the userdata column in text with a provided userid3
 
-        $query = 'SELECT userData
+        $query = 'SELECT *
                     FROM userdata
                     WHERE userid = "'.$userid.'"';
 
         //prepare query statement
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->UserConn->prepare($query);
 
         //execute query
         $stmt->execute();
@@ -45,77 +43,82 @@ class userdata {
         }
     }
 
-    function create($userid, $data){
+    function create($array){
         
-        try {
-            $id = get_UUid($this->conn);
+        //need to verify that user and plant exist before writing
+        if((array_key_exists('userId', $array) && !$this->useridexists($array['userId'])) ||
+           (array_key_exists('plantId', $array) && !$this->plantidexists($array['plantId']))) {
+            
+            $currRet['success'] = "false";
+            $currRet['message'] = "userId or plantId are incorrect.";
 
-            $query = 'INSERT INTO userdata
-                        VALUES ("'.$id.'", "'.$userid.'", "'.$data.'")';
-
-            //prepare query statement
-            $stmt = $this->conn->prepare($query);
-
-            //execute query
-            $stmt->execute();
-
-            return true;
-
-        } catch (Exception $e) {
-
-            logQueryError($query, $e->getMessage());
-
-            return false;
-
+            return $currRet;
+        }
+        else{
+            //Write new user to admin.users
+            return $this->globalCUD->CreateGlobal($array, $this->UserConn, $this->tableName, $this->id);
         }
     }
 
-    function update($userid, $data){
+    function update($array){
         
-        try {
+        $this->id = $array['id'];
 
-            $query = 'UPDATE userdata
-                        SET userData = "'.$data.'"
-                        WHERE userid = "'.$userid.'"';
+        //need to verify that user and plant exist before writing
+        if((array_key_exists('userId', $array) && !$this->useridexists($array['userId'])) ||
+           (array_key_exists('plantId', $array) && !$this->plantidexists($array['plantId']))) {
+            
+            $currRet['success'] = "false";
+            $currRet['message'] = "userId or plantId are incorrect.";
 
-            //prepare query statement
-            $stmt = $this->conn->prepare($query);
-
-            //execute query
-            $stmt->execute();
-
-            return true;
-
-        } catch (Exception $e) {
-
-            logQueryError($query, $e->getMessage());
-
-            return false;
-
+            return $currRet;
+        }
+        else{
+            //Write new user to admin.users
+            return $this->globalCUD->UpdateGlobal($array, $this->UserConn, $this->tableName, $this->id);
         }
     }
 
-    function delete($userid){
+    function delete($array){
         
-        try {
+        return $this->globalCUD->DeleteGlobal($array, $this->UserConn, $this->tableName);
+    }
 
-            $query = 'DELETE FROM userdata
-                        WHERE userid = "'.$userid.'"';
+    private function useridexists($userid){
+        $query = 'SELECT *
+                    FROM useradmin.users
+                    WHERE id = "'.$userid.'"';
 
-            //prepare query statement
-            $stmt = $this->conn->prepare($query);
+        //prepare query statement
+        $stmt = $this->UserConn->prepare($query);
 
-            //execute query
-            $stmt->execute();
+        //execute query
+        $stmt->execute();
 
+        if($stmt->rowCount() > 0){
             return true;
-
-        } catch (Exception $e) {
-
-            logQueryError($query, $e->getMessage());
-
+        }
+        else{
             return false;
+        }
+    }
 
+    private function plantidexists($plantid){
+        $query = 'SELECT *
+                    FROM plantdata.plant
+                    WHERE id = "'.$plantid.'"';
+
+        //prepare query statement
+        $stmt = $this->UserConn->prepare($query);
+
+        //execute query
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

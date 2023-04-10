@@ -7,7 +7,8 @@ if(!defined('MyConst')) {
 class globalCUD{
 
     private $requireParam = array(
-        "users" => array("userName", "passwordHash", "email", "firstName", "lastName", "fullName", "hasAccessFlag")
+        "users" => array("userName", "passwordHash", "email", "firstName", "lastName", "fullName", "hasAccessFlag"),
+        "userdata" => array("userId", "plantId", "datePlanted")
     );
     
     private $optionalParam = array(

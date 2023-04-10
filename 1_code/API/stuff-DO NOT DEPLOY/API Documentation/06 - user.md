@@ -17,12 +17,7 @@ GET request:
         "hasAccessFlag": "1",
         "isAdminFlag": "0",
         "createdDate": "2023-03-26 21:04:15",
-        "lastModifiedDate": "2023-03-27 03:03:27",
-        "userData": [
-            {
-                "userData": "<USERDATA>\r\ntext goes here?\r\n</USERDATA>"
-            }
-        ]
+        "lastModifiedDate": "2023-03-27 03:03:27"
     }
 ]
 
@@ -93,15 +88,12 @@ Missing variables:
 PUT request:
 At minimum update requests MUST have the id present to write updates to the database. For update ALL over variables are optional and should only be provided if there is an update.
 
-For userData, just provide as a base variable of the object and the API will handle writing that to the unique table.
-
 Example input:
 {
     "data" : [
         {
             "id": "0befb235-cf54-11ed-9782-244bfe7dd4fe",
-            "userName": "testerUser12UPDA1TE",
-            "userData": "TEST UPDATING USER DATA!!!!"
+            "userName": "testerUser12UPDA1TE"
         }
     ]
 }  
@@ -116,8 +108,7 @@ Success: (201)
         "message": "Successfully updated users",
         "data": {
             "id": "0befb235-cf54-11ed-9782-244bfe7dd4fe",
-            "userName": "testerUser12UPDA1TE",
-            "userData": "TEST UPDATING USER DATA!!!!"
+            "userName": "testerUser12UPDA1TE"
         }
     }
 ]

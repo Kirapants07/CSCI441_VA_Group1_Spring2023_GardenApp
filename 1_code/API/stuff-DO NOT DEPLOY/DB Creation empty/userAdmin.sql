@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `userdata` (
   `id` char(36) NOT NULL,
   `userId` char(36) NOT NULL,
-  `userData` text DEFAULT NULL
+  `plantId` char(36) NOT NULL,
+  `datePlanted` DATE NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

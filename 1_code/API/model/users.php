@@ -132,20 +132,6 @@ class users{
             return $currRet;
 
         }
-        else{
-
-        if(array_key_exists('userData', $array)) {
-            if($this->userData->read($this->id) != null) {
-                $this->userData->update($this->id, $array['userData']);
-            }
-            else {
-                $this->userData->create($this->id, $array['userData']);
-            }
-        }
-            
-            return $this->globalCUD->UpdateGlobal($array, $this->conn, $this->tableName);
-        }
-
     }
 
     private function userExists($userName) {
