@@ -84,6 +84,9 @@
                 if (sig == "SO"){//IF sig=SO (AKA Sign Out)
                     message = '<h3>Sign Out Successful!</h3>';
                 }
+                if (sig == "AC"){//IF sig=SO (AKA Account Created)
+                    message = '<h3>Account Created! Please Log In to get Started! </h3>';
+                }
                 messDiv.insertAdjacentHTML('afterbegin', message); //Add message to feedback message div
             }
         </script>
@@ -91,7 +94,7 @@
         <!-- Sign up form -->
         <form id="login-form" method="post" action="../../API/api/user/authenticateLogin.php">
             <div class="input-field">
-                    <label for="login-username" class="visually-hidden">UserName</label>
+                    <label for="login-username" class="visually-hidden">Username</label>
                     <input name ="login-username" id="login-username" type="text" placeholder="Username" required class="userInfo">
             </div>
             <div class="input-field">

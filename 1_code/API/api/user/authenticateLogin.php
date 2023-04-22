@@ -6,10 +6,18 @@
  * The file then checks to see if the session Token 'username' is set, which indicates successful authentication.
  * If the credentials were valid and authentication was successful, the userID session token is set and the user is directed to the userinfo.php
  * If the credentials were invalid, the user is directed back to the login.html page with a variable set for the error message.
- * All tests will be run automatically and results will be displayed in browser.
  */
-$formUserName = filter_input(INPUT_POST, 'login-username', FILTER_SANITIZE_STRING); //Get username from form
-$formPassword= filter_input(INPUT_POST, 'login-password', FILTER_SANITIZE_STRING);// Get password from form
+if($LoginType == "New User") //If signing in from account creation
+{
+   
+    $formUserName = filter_input(INPUT_POST, 'signup-username', FILTER_SANITIZE_STRING); //Get username from form
+    $formPassword = filter_input(INPUT_POST, 'signup-password', FILTER_SANITIZE_STRING);// Get password from form
+}
+else //If signing in from login page
+{
+    $formUserName = filter_input(INPUT_POST, 'login-username', FILTER_SANITIZE_STRING); //Get username from form
+    $formPassword = filter_input(INPUT_POST, 'login-password', FILTER_SANITIZE_STRING);// Get password from form
+}
 
 include_once ("index.php");
 include_once '../../config/errorLogs/errorLogs.php';
@@ -25,7 +33,7 @@ if (!isset($_SESSION["username"]))//If Authentication failed
    include('../../../Website/pages/login.html?sig=IC');
 }
 else{ //If authentication was successful
-
+    header ("Location: ../../../Website/pages/userInfo.html");
         // ESTABLISH SESSION VARIABLE WITH USERNAME 
         $adminDB = new Database("userAdmin"); //Establish DB
         $admin = $adminDB->connect(); //Get connection
@@ -33,8 +41,7 @@ else{ //If authentication was successful
         $userOb = new users($admin); 
         $userInfo = $userOb->read($_SESSION["username"]);//Get information for user account
         $_SESSION["userID"] = $userInfo["id"]; //Assign user ID as session token
-        $message = "Login Successful!"; //Login Confirmation message
-        header ("Location: ../../../Website/pages/userinfo.html");//Display user information page
+        header ("Location: ../../../Website/pages/userInfo.html");//Display user information page
     }
 
 ?>

@@ -2,11 +2,13 @@
     if(!defined('MyConst')) {
         die('Direct access not permitted');
     }
-       
+    $returnArray = array();
     if(array_key_exists('data', $data2) && sizeof($data2['data']) == 1)
     {
+        $adminDB = new Database("userAdmin"); //Establish DB
+        $admin = $adminDB->connect(); //Get connection
         //$armMany = array();
-        $returnArray = array();
+        
 
         $users = new users($admin);
 
@@ -35,5 +37,5 @@
         //tell the user
         echo json_encode(array("message" => "Incorrect data provided."));
     }
-    exit();
+    //exit();
 ?>

@@ -1,7 +1,9 @@
 <?php
     //This serves as the user controller
-
-    define('MyConst', TRUE);
+    if(!defined('MyConst'))
+    {
+        define('MyConst', TRUE);
+    }
 
     //AUTH EXECUTION NEEDS TO GO HERE IF THE APP DOES NOT PROVIDE CREDENTIALS THEY GO NO FURTHER.
     require_once '../../config/authExecute.php';

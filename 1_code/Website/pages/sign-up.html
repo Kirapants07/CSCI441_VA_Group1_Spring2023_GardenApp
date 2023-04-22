@@ -69,27 +69,46 @@
         <h1>
             Sign Up
         </h1>
+
+        <div id = "Message"> </div>
+        <script>
+            var messDiv = document.getElementById('Message');//Get the location of the Div for feedback message
+            message="";
+
+            var url = window.location.href; //Get URL
+            var sig = /sig=([^&]+)/.exec(url)[1]; //Get the value of sig from URL
+            if(typeof sig !== 'undefined'){ ///If sig is defined
+                if(sig == "IU"){ //If sig=IU (AKA Invalid Credentials)
+                    message = '<h3>Username is taken. Please try again.</h3>';
+                }
+                if(sig == "ER"){ //If sig=IU (AKA Invalid Credentials)
+                    message = '<h3>Something went wrong. Please check all items and try again.</h3>';
+                }
+                
+                messDiv.insertAdjacentHTML('afterbegin', message); //Add message to feedback message div
+            }
+        </script>
         <!-- Sign up form -->
-        <form id="signup-form">
+        <form id="signup-form" method="post" action="../../API/api/user/signup.php">
             <div class="input-field">
                 <label for="signup-firstname" class="visually-hidden">First Name</label>
-                <input type="text" id="signup-firstname" placeholder="First Name" required class="userInfo">
+                <input type="text" name="signup-firstname" id="signup-firstname" placeholder="First Name" required class="userInfo">
             </div>
             <div class="input-field">
                 <label for="signup-lastname" class="visually-hidden">Last Name</label>
-                <input type="text" id="signup-lastname" placeholder="Last Name" required class="userInfo">
+                <input type="text" name="signup-lastname" id="signup-lastname" placeholder="Last Name" required class="userInfo">
             </div>
             <div class="input-field">
-                <label for="signup-username" class="visually-hidden">Email</label>
-                <input type="text" id="signup-username" placeholder="UserName" required class="userInfo">
+                <label for="signup-username" class="visually-hidden">Username</label>
+                <input type="text" name="signup-username" id="signup-username" placeholder="Username" required class="userInfo">
             </div>
-            <!-- <div class="input-field">
+            <div class="input-field">
                     <label for="signup-email" class="visually-hidden">Email</label>
-                    <input type="email" id="signup-email" placeholder="Email" required class="userInfo">
-            </div> -->
+                    <input type="email" name="signup-email" id="signup-email" placeholder="Email" required class="userInfo">
+            </div>
             <div class="input-field">
                     <label for="signup-password" class="visually-hidden">Password</label>
-                    <input type="password" id="signup-password" placeholder="Password" required class="userInfo">
+                    <input type="password" name="signup-password" id="signup-password" placeholder="Password" required class="userInfo">
             </div>
             <div>
                 <p>Already have an Account? 
