@@ -21,7 +21,7 @@ async function getUserInfo(UID) {
     userData = await userResp.json();
    
     if (userData.message){
-        console.log(userData.message);
+        tableCheck();
         const div = document.createElement("div");
         div.setAttribute("id", "noUFoundDiv");
         const fail = document.createTextNode("You have no plants");
@@ -69,7 +69,7 @@ async function displayUserPlants (UID) {
     // append the table to the page
     if (element)
     {
-        main.prepend(element);
+        main.append(element);
     }
 
     removePlant();
