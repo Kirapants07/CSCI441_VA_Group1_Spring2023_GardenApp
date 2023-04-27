@@ -4,10 +4,11 @@
 
 export default class Plant {
 
-    constructor (plantId, plantName, plantType, plantSpacing, germination, harvest, plantingInstructions = null) {
+    constructor (plantId, plantName, plantType, plantDate = '0000-00-00', plantSpacing, germination, harvest, plantingInstructions = null) {
         this.id = plantId;
         this.name = plantName;
         this.type = plantType;
+        this.date = plantDate;
         this.spacing = plantSpacing;
         this.germ = germination;
         this.harv = harvest;
@@ -22,6 +23,9 @@ export default class Plant {
     }
     getType(){
         return this.type;
+    }
+    getDate(){
+        return this.date;
     }
     getSpacing(){
         return this.spacing;

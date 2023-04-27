@@ -3,7 +3,9 @@
 //Gets and Displays Plants
 
 import Plant from "./plantClass.js";
-import host from './hostUrl.js';
+import {host, uHost} from './hostUrl.js';
+import { allowAdd } from "./UserPlants.js";
+
 
 let url = null;
 
@@ -97,7 +99,10 @@ const displayPlants = async (plantName, zone) => {
     {
         main.append(element);
     }
+    allowAdd();
     return element;
+
+
 
 }
 
@@ -158,6 +163,10 @@ async function createPlantTable(plants)
         germ.textContent =  plant.getGermination();
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
+        let addButton = document.createElement("BUTTON");
+        addButton.setAttribute("id", plant.getId());
+        addButton.setAttribute("class", "addButton");
+        addButton.innerHTML =("ADD");
      
         // append row elements
         newRow.appendChild(name);
@@ -165,6 +174,7 @@ async function createPlantTable(plants)
         newRow.appendChild(spacing);
         newRow.appendChild(germ);
         newRow.appendChild(harv);
+        newRow.appendChild(addButton);
 
         
     }
