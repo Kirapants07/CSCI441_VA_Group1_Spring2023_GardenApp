@@ -73,6 +73,7 @@ async function displayUserPlants (UID) {
     }
 
     removePlant();
+    allowUpdate();
     return element;
 
 }
@@ -109,7 +110,9 @@ async function createPlantTable(plants)
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
-    btn.textContent = "";
+    btn.textContent = "Delete";
+    let ubtn = document.createElement("th");
+    ubtn.textContent = "Update";
 
     //append header elements
     title.appendChild(tName);
@@ -119,6 +122,7 @@ async function createPlantTable(plants)
     title.appendChild(tGerm);
     title.appendChild(tHarv);
     title.appendChild(btn);
+    title.appendChild(ubtn);
 
 
     // create table elements
@@ -154,7 +158,16 @@ async function createPlantTable(plants)
                     delete
                 </span>
             </button>
-        `);        
+        `); 
+
+        let upRow = document.createElement("td");
+        upRow.innerHTML = (`
+            <button alt="update"> 
+                <span id="${plant.getId()}" class="updButton material-icons md-36">
+                    update
+                </span>
+            </button>
+        `);
      
         // append row elements
         newRow.appendChild(name);
@@ -164,6 +177,7 @@ async function createPlantTable(plants)
         newRow.appendChild(germ);
         newRow.appendChild(harv);
         newRow.appendChild(btnRow);
+        newRow.appendChild(upRow);
 
     }
     return fragment;
@@ -186,6 +200,33 @@ async function addPlant(id,date='0000-00-00')
 
     const response = await fetch(url, {
         method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      console.log(response);
+
+      tableCheck();
+      displayUserPlants(info);
+      
+
+}
+async function updatePlant(id,date)
+{
+    let UID = null;
+    if (!userData || userData.message) UID = info;
+    else UID = userData[0].userId;
+
+    url = uHost(null);
+    const data = {
+        "data": [{
+            userId: UID,
+            plantId: id,
+            datePlanted: date
+        }]
+    }
+
+    const response = await fetch(url, {
+        method: "PUT",
         body: JSON.stringify(data),
       });
 
@@ -257,8 +298,27 @@ function allowAdd(){
     }
 }
 
+function allowUpdate(){
+
+    let upDateElements = document.getElementsByClassName("addButton material-icons md-36");
+    
+    console.log(upDateElements);
+    for (var i=0; i< addElements.length; i++) {
+        updateElements[i].addEventListener("click", (e) => {
+
+          //  if (!userData) return; // no userdata so back out without trying to do anything
+            e.preventDefault(); // prevent default error
+            uPlantList.length = 0; // reset plantlist
+            tableCheck();
+            
+            updatePlant(e.target.id);
+    
+        }); 
+    }
+}
+
 function removePlant(){
-    let remElements = document.getElementsByClassName("remButton material-icons md-36");
+    let remElements = document.getElementsByClassName("updButton material-icons md-36");
 
     for (var i=0; i<remElements.length; i++) {
         remElements[i].addEventListener("click", (e) => {
