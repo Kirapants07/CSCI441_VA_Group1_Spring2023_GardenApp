@@ -69,7 +69,7 @@ export default async function getPlants (plantName, zoneNum) {
     // create an array of plant objects
     for (let i = 0; i < jsonData.length; i++){
         const temp = jsonData[i];
-        const newPlant = new Plant(temp.id,temp.name,temp.type,temp.spacing,temp.germinationInformation,temp.harvestInformation);
+        const newPlant = new Plant(temp.id,temp.name,temp.type, null, temp.spacing,temp.germinationInformation,temp.harvestInformation);
         
         plantList.push(newPlant);   
     }

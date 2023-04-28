@@ -30,7 +30,6 @@ function host (type,name,zone) {
 }
 //function to create the url
 function uHost (userId) {
-    console.log(userId);
 
     if(!userId)
     {

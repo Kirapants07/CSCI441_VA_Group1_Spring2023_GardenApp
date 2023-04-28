@@ -262,9 +262,7 @@ function removePlant(){
     }
 }
 
-document.getElementById("Tbutton").addEventListener('click', () => {
-        console.log("worked");
-        
+document.getElementById("Tbutton").addEventListener('click', () => {        
         displayUserPlants(info);
 });
 
