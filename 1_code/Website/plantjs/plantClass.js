@@ -8,40 +8,19 @@ export default class Plant {
         this.id = plantId;
         this.name = plantName;
         this.type = plantType;
-        this.date = plantDate;
+        this.date = newDate(plantDate);
         this.spacing = plantSpacing;
         this.germ = germination;
         this.harv = harvest;
         this.ps = plantingInstructions;
     }
 
-    getId(){
-        return this.id;
-    }
-    getName(){
-        return this.name;
-    }
-    getType(){
-        return this.type;
-    }
-    getDate(){
-        return this.date;
-    }
-    getSpacing(){
-        return this.spacing;
-    }
-    getGermination(){
-        return this.germ;
-    }
-    getHarvest(){
-        return this.harv;
+    newDate(plantDate){
 
-    }
-    getPS(){
-        if (!this.ps){
-            return "No instructions";
-        }
-        return this.ps;
+        let splitDate = plantDate.split(""); 
+       
+        newDate = `${splitDate[4]}${splitDate[5]}-${splitDate[6]}${splitDate[7]}-${splitDate[0]}${splitDate[1]}${splitDate[2]}${splitDate[3]}`;
+        return newDate;
     }
 
 }

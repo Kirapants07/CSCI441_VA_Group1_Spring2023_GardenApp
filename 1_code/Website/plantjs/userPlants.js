@@ -101,7 +101,7 @@ async function createPlantTable(plants)
     let tType = document.createElement("th");
     tType.textContent = "Type";
     let tDate = document.createElement("th");
-    tDate.textContent = "Date Planted;"
+    tDate.textContent = "Date Planted";
     let tSpacing = document.createElement("th");
     tSpacing.textContent = "Spacing";
     let tGerm = document.createElement("th");
@@ -137,6 +137,8 @@ async function createPlantTable(plants)
         let type = document.createElement("td");
         type.textContent =  plant.getType();
         let date = document.createElement("td");
+        date.setAttribute("contenteditable", "true");
+        date.setAttribute("class","inputDate");
         date.textContent = plant.getDate();
         let spacing = document.createElement("td");
         spacing.textContent =  plant.getSpacing();
@@ -181,7 +183,7 @@ async function addPlant(id,date='0000-00-00')
             datePlanted: date
         }]
     }
-    console.log(data.data);
+
     const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -223,6 +225,7 @@ async function remPlant(id)
 
 function tableCheck()
 {
+    uPlantList.length = 0;
     const pTable = document.getElementById("uTable"); // check for table
     const noFou = document.getElementById("noUFoundDiv");
     if(pTable)
@@ -237,7 +240,7 @@ function tableCheck()
 
 function allowAdd(){
 
-    let addElements = document.getElementsByClassName("addButton");
+    let addElements = document.getElementsByClassName("addButton material-icons md-36");
     
     console.log(addElements);
     for (var i=0; i< addElements.length; i++) {
@@ -255,7 +258,7 @@ function allowAdd(){
 }
 
 function removePlant(){
-    let remElements = document.getElementsByClassName("remButton");
+    let remElements = document.getElementsByClassName("remButton material-icons md-36");
 
     for (var i=0; i<remElements.length; i++) {
         remElements[i].addEventListener("click", (e) => {
@@ -270,7 +273,8 @@ function removePlant(){
     }
 }
 
-document.getElementById("Tbutton").addEventListener('click', () => {        
+document.getElementById("Tbutton").addEventListener('click', () => {   
+        tableCheck();     
         displayUserPlants(info);
 });
 
