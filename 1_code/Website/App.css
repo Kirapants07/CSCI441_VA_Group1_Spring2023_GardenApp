@@ -34,9 +34,22 @@ nav a {
 }
 
 th, td{
-    padding: 30px 10px 30px 10px;
+    padding: 10px 10px 10px 10px;
     background-color: #f5f5f5;
     color:rgb(44, 114, 57);
+  }
+
+  table {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 100px;
+  }
+
+  table button {
+  width: 100%;
+    align-items: "center";
+    border-radius: 10px 10px 10px 10px;
+
   }
 
 /*container for account dropdown*/
@@ -161,7 +174,6 @@ button {
     border-radius: 25px 25px 25px 25px;
     margin-top: 40px;
     margin-bottom: 100px;
-    margin-left: 100px;
 }
 
 button:hover {

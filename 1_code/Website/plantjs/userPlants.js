@@ -16,7 +16,7 @@ const info = "af91bf21-cf52-11ed-9782-244bfe7dd4fe";
 async function getUserInfo(UID) {
     // build the url
     let url = uHost(UID);
-    let userResp = await fetch (url);
+    let userResp = await fetch(url);
 
     userData = await userResp.json();
    
@@ -41,7 +41,7 @@ async function getUserPlants()  {
 
     // loop through the users plants to grab each one.
     for (let i = 0; i < userData.length; i++){
-        let response = await fetch (`${url}?id=${userData[i].plantId}`);
+        let response = await fetch(`${url}?id=${userData[i].plantId}`);
         const plantData = await response.json();
         const temp = plantData[0];
         const newPlant = new Plant(temp.id,temp.name,temp.type,userData[i].date,temp.spacing,temp.germinationInformation,temp.harvestInformation);
@@ -108,6 +108,8 @@ async function createPlantTable(plants)
     tGerm.textContent = "Germination";
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
+    let btn = document.createElement("th");
+    btn.textContent = "";
 
     //append header elements
     title.appendChild(tName);
@@ -116,6 +118,8 @@ async function createPlantTable(plants)
     title.appendChild(tSpacing);
     title.appendChild(tGerm);
     title.appendChild(tHarv);
+    title.appendChild(btn);
+
 
     // create table elements
     for(let i=0; i < plants.length; i++)
@@ -140,10 +144,15 @@ async function createPlantTable(plants)
         germ.textContent =  plant.getGermination();
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
-        let remButton = document.createElement("button");
-        remButton.setAttribute("id", plant.getId());
-        remButton.setAttribute("class", "remButton")
-        remButton.innerHTML =("Remove");
+
+        let btnRow = document.createElement("td");
+        btnRow.innerHTML = (`
+            <button alt="delete"> 
+                <span id="${plant.getId()}" class="remButton material-icons md-36">
+                    delete
+                </span>
+            </button>
+        `);        
      
         // append row elements
         newRow.appendChild(name);
@@ -152,9 +161,8 @@ async function createPlantTable(plants)
         newRow.appendChild(spacing);
         newRow.appendChild(germ);
         newRow.appendChild(harv);
-        newRow.appendChild(remButton);
+        newRow.appendChild(btnRow);
 
-        
     }
     return fragment;
 }
