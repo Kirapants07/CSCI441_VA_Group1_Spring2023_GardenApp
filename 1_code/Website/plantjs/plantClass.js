@@ -4,7 +4,7 @@
 
 export default class Plant {
 
-    constructor (plantId, plantName, plantType, plantDate = '0000-00-00', plantSpacing, germination, harvest, plantingInstructions = null) {
+    constructor (plantId, plantName, plantType, plantDate = '0000-00-00', plantSpacing, germination, harvest, plantingInstructions = null, pID = "0") {
         this.id = plantId;
         this.name = plantName;
         this.type = plantType;
@@ -13,6 +13,7 @@ export default class Plant {
         this.germ = germination;
         this.harv = harvest;
         this.ps = plantingInstructions;
+        this.pID = pID;
     }
     getId(){
         return this.id;
@@ -41,5 +42,10 @@ export default class Plant {
     getHarvest(){
         return this.harv;
     }
+    
+    getpID(){
+        return this.pID
+    }
+    
 
 }

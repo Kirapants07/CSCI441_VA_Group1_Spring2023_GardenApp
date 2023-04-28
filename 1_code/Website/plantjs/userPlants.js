@@ -38,14 +38,16 @@ async function getUserPlants()  {
 
     // grab a generic url
     url = host();
+    
 
     // loop through the users plants to grab each one.
     for (let i = 0; i < userData.length; i++){
         let response = await fetch(`${url}?id=${userData[i].plantId}`);
         const plantData = await response.json();
         const temp = plantData[0];
-        const newPlant = new Plant(temp.id,temp.name,temp.type,userData[i].datePlanted,temp.spacing,temp.germinationInformation,temp.harvestInformation);
+        const newPlant = new Plant(temp.id,temp.name,temp.type,userData[i].datePlanted,temp.spacing,temp.germinationInformation,temp.harvestInformation,temp.plantingInstructions,userData[i].id);
         uPlantList.push(newPlant);   
+               
     }
     const div = document.createElement("div");
     div.setAttribute("id", "noUFoundDiv");
@@ -161,7 +163,7 @@ async function createPlantTable(plants)
         let upRow = document.createElement("td");
         upRow.innerHTML = (`
             <button alt="update"> 
-                <span id="${plant.getId()}" class="udButton material-icons md-36">
+                <span id="${plant.getpID()}" class="udButton material-icons md-36">
                     update
                 </span>
             </button>
@@ -210,23 +212,17 @@ async function addPlant(id,date='0000-00-00')
       
 
 }
-async function updatePlant(id,date)
+async function updatePlant(iD,date)
 {
-    let storedId = null;
-    for(let i = 0 ; i < userData.length; i++)
-    {
-        if (userData[i].plantId === id) storedId = userData[i].id;
 
-    }
-    console.log(storedId);
     url = uHost(null);
     const data = {
         "data": [{
-            id: storedId,
+            id: iD,
             datePlanted: date
         }]
     }
-    console.log(data);
+    
     const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -316,7 +312,7 @@ function checkDate(date) {
     let splitDate = date.split(""); 
        
     const newDate = `${splitDate[6]}${splitDate[7]}${splitDate[8]}${splitDate[9]}-${splitDate[0]}${splitDate[1]}-${splitDate[3]}${splitDate[4]}`;
-    console.log(newDate);
+    
     return newDate;
 }
 
@@ -330,7 +326,7 @@ function updateDate(){
           //  if (!u) return; // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
             const inDate = window.prompt("Add your new Date as MM-DD-YY", "01-01-2023");
-            console.log(inDate);
+            
             const date = checkDate(inDate); 
             if (!date) return;
                 
