@@ -110,9 +110,9 @@ async function createPlantTable(plants)
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
-    btn.textContent = "";
-   // let ubtn = document.createElement("th");
-   // ubtn.textContent = "Update";
+    btn.textContent = "Remove";
+    let ubtn = document.createElement("th");
+    ubtn.textContent = "Update";
 
     //append header elements
     title.appendChild(tName);
@@ -122,7 +122,7 @@ async function createPlantTable(plants)
     title.appendChild(tGerm);
     title.appendChild(tHarv);
     title.appendChild(btn);
-    //title.appendChild(ubtn);
+    title.appendChild(ubtn);
 
 
     // create table elements
@@ -159,7 +159,7 @@ async function createPlantTable(plants)
                 </span>
             </button>
         `); 
-/*
+
         let upRow = document.createElement("td");
         upRow.innerHTML = (`
             <button alt="update"> 
@@ -169,7 +169,7 @@ async function createPlantTable(plants)
             </button>
         `);
 
-*/     
+     
         // append row elements
         newRow.appendChild(name);
         newRow.appendChild(type);
@@ -178,7 +178,7 @@ async function createPlantTable(plants)
         newRow.appendChild(germ);
         newRow.appendChild(harv);
         newRow.appendChild(btnRow);
-     //   newRow.appendChild(upRow);
+        newRow.appendChild(upRow);
 
     }
     return fragment;
