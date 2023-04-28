@@ -44,7 +44,7 @@ async function getUserPlants()  {
         let response = await fetch(`${url}?id=${userData[i].plantId}`);
         const plantData = await response.json();
         const temp = plantData[0];
-        const newPlant = new Plant(temp.id,temp.name,temp.type,userData[i].date,temp.spacing,temp.germinationInformation,temp.harvestInformation);
+        const newPlant = new Plant(temp.id,temp.name,temp.type,userData[i].datePlanted,temp.spacing,temp.germinationInformation,temp.harvestInformation);
         uPlantList.push(newPlant);   
     }
     const div = document.createElement("div");
@@ -73,7 +73,7 @@ async function displayUserPlants (UID) {
     }
 
     removePlant();
-   // allowUpdate();
+    updateDate();
     return element;
 
 }
@@ -112,7 +112,7 @@ async function createPlantTable(plants)
     let btn = document.createElement("th");
     btn.textContent = "Remove";
     let ubtn = document.createElement("th");
-    ubtn.textContent = "Update";
+    ubtn.textContent = "Add / Update Date";
 
     //append header elements
     title.appendChild(tName);
@@ -141,8 +141,6 @@ async function createPlantTable(plants)
         let type = document.createElement("td");
         type.textContent =  plant.getType();
         let date = document.createElement("td");
-        date.setAttribute("contenteditable", "true");
-        date.setAttribute("class","inputDate");
         date.textContent = plant.getDate();
         let spacing = document.createElement("td");
         spacing.textContent =  plant.getSpacing();
@@ -163,7 +161,7 @@ async function createPlantTable(plants)
         let upRow = document.createElement("td");
         upRow.innerHTML = (`
             <button alt="update"> 
-                <span id="${plant.getId()}" class="updButton material-icons md-36">
+                <span id="${plant.getId()}" class="udButton material-icons md-36">
                     update
                 </span>
             </button>
@@ -212,33 +210,35 @@ async function addPlant(id,date='0000-00-00')
       
 
 }
-/*async function updatePlant(id,date)
+async function updatePlant(id,date)
 {
-    let UID = null;
-    if (!userData || userData.message) UID = info;
-    else UID = userData[0].userId;
+    let storedId = null;
+    for(let i = 0 ; i < userData.length; i++)
+    {
+        if (userData[i].plantId === id) storedId = userData[i].id;
 
+    }
+    console.log(storedId);
     url = uHost(null);
     const data = {
         "data": [{
-            userId: UID,
-            plantId: id,
+            id: storedId,
             datePlanted: date
         }]
     }
-
+    console.log(data);
     const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(data),
       });
 
-      console.log(response);
+
 
       tableCheck();
       displayUserPlants(info);
       
 
-}*/
+}
 async function remPlant(id)
 {
     let delId = null;
@@ -296,7 +296,6 @@ function allowAdd(){
           } // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
-            tableCheck();
             
             addPlant(e.target.id);
     
@@ -305,25 +304,40 @@ function allowAdd(){
     }
 
 }
-
-/*function allowUpdate(){
-
-    let upDateElements = document.getElementsByClassName("addButton material-icons md-36");
+function checkDate(date) {
     
-    console.log(upDateElements);
-    for (var i=0; i< addElements.length; i++) {
-        updateElements[i].addEventListener("click", (e) => {
+    const check = /^\d{2}\-\d{2}\-\d{4}$/;
+    const result = check.test(date);
+    if (!result)
+    {
+        window.confirm("The date format is invalid.  It must be MM-DD-YYYY");
+        return 0;
+    }
+    let splitDate = date.split(""); 
+       
+    const newDate = `${splitDate[6]}${splitDate[7]}${splitDate[8]}${splitDate[9]}-${splitDate[0]}${splitDate[1]}-${splitDate[3]}${splitDate[4]}`;
+    console.log(newDate);
+    return newDate;
+}
+
+function updateDate(){
+
+    let upDateElements = document.getElementsByClassName("udButton material-icons md-36");
+
+    for (var i=0; i< upDateElements.length; i++) {
+        upDateElements[i].addEventListener("click", (e) => {
 
           //  if (!u) return; // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
-            uPlantList.length = 0; // reset plantlist
-            tableCheck();
-            
-            updatePlant(e.target.id);
-    
+            const inDate = window.prompt("Add your new Date as MM-DD-YY", "01-01-2023");
+            console.log(inDate);
+            const date = checkDate(inDate); 
+            if (!date) return;
+                
+            updatePlant(e.target.id, date);
         }); 
     }
-}*/
+}
 
 function removePlant(){
     let remElements = document.getElementsByClassName("remButton material-icons md-36");
@@ -333,7 +347,6 @@ function removePlant(){
 
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
-            tableCheck();
             
             remPlant(e.target.id); // get user value
     
