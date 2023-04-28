@@ -290,7 +290,10 @@ function allowAdd(){
     for (var i=0; i< addElements.length; i++) {
         addElements[i].addEventListener("click", (e) => {
 
-          //  if (!userData) return; // no userdata so back out without trying to do anything
+         if (!document.cookie) {
+            window.confirm("You need to be logged in to use this feature");
+            return;
+          } // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
             tableCheck();
@@ -311,7 +314,7 @@ function allowAdd(){
     for (var i=0; i< addElements.length; i++) {
         updateElements[i].addEventListener("click", (e) => {
 
-          //  if (!userData) return; // no userdata so back out without trying to do anything
+          //  if (!u) return; // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
             tableCheck();
@@ -341,7 +344,7 @@ function removePlant(){
 
 document.getElementById("Tbutton").addEventListener('click', () => {   
         if (!document.cookie){
-            alert("You need to be logged in to user this feature!");
+            window.confirm("You need to be logged in to user this feature!");
             return;
         }
         

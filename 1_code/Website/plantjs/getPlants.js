@@ -135,7 +135,7 @@ async function createPlantTable(plants)
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
-    btn.textContent = "";
+    btn.textContent = "Add";
 
     //append header elements
     title.appendChild(tName);
