@@ -9,7 +9,7 @@ let url = null;
 
 const uPlantList = [];
 let userData = null;
-const info = "af91bf21-cf52-11ed-9782-244bfe7dd4fe";
+let info = null;
 //Function to fetch and get plants
 
 
@@ -73,7 +73,7 @@ async function displayUserPlants (UID) {
     }
 
     removePlant();
-    allowUpdate();
+   // allowUpdate();
     return element;
 
 }
@@ -110,9 +110,9 @@ async function createPlantTable(plants)
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
-    btn.textContent = "Delete";
-    let ubtn = document.createElement("th");
-    ubtn.textContent = "Update";
+    btn.textContent = "";
+   // let ubtn = document.createElement("th");
+   // ubtn.textContent = "Update";
 
     //append header elements
     title.appendChild(tName);
@@ -122,7 +122,7 @@ async function createPlantTable(plants)
     title.appendChild(tGerm);
     title.appendChild(tHarv);
     title.appendChild(btn);
-    title.appendChild(ubtn);
+    //title.appendChild(ubtn);
 
 
     // create table elements
@@ -159,7 +159,7 @@ async function createPlantTable(plants)
                 </span>
             </button>
         `); 
-
+/*
         let upRow = document.createElement("td");
         upRow.innerHTML = (`
             <button alt="update"> 
@@ -168,7 +168,8 @@ async function createPlantTable(plants)
                 </span>
             </button>
         `);
-     
+
+*/     
         // append row elements
         newRow.appendChild(name);
         newRow.appendChild(type);
@@ -177,7 +178,7 @@ async function createPlantTable(plants)
         newRow.appendChild(germ);
         newRow.appendChild(harv);
         newRow.appendChild(btnRow);
-        newRow.appendChild(upRow);
+     //   newRow.appendChild(upRow);
 
     }
     return fragment;
@@ -207,10 +208,11 @@ async function addPlant(id,date='0000-00-00')
 
       tableCheck();
       displayUserPlants(info);
+      alert("Plant Added!");
       
 
 }
-async function updatePlant(id,date)
+/*async function updatePlant(id,date)
 {
     let UID = null;
     if (!userData || userData.message) UID = info;
@@ -236,7 +238,7 @@ async function updatePlant(id,date)
       displayUserPlants(info);
       
 
-}
+}*/
 async function remPlant(id)
 {
     let delId = null;
@@ -261,6 +263,7 @@ async function remPlant(id)
 
       tableCheck();
       displayUserPlants(info);
+      alert("Plant Removed!");
     
 }
 
@@ -295,10 +298,12 @@ function allowAdd(){
             addPlant(e.target.id);
     
         }); 
+        
     }
+
 }
 
-function allowUpdate(){
+/*function allowUpdate(){
 
     let upDateElements = document.getElementsByClassName("addButton material-icons md-36");
     
@@ -315,10 +320,10 @@ function allowUpdate(){
     
         }); 
     }
-}
+}*/
 
 function removePlant(){
-    let remElements = document.getElementsByClassName("updButton material-icons md-36");
+    let remElements = document.getElementsByClassName("remButton material-icons md-36");
 
     for (var i=0; i<remElements.length; i++) {
         remElements[i].addEventListener("click", (e) => {
@@ -331,9 +336,20 @@ function removePlant(){
     
         }); 
     }
+    
 }
 
 document.getElementById("Tbutton").addEventListener('click', () => {   
+        if (!document.cookie){
+            alert("You need to be logged in to user this feature!");
+            return;
+        }
+        
+        const idCookie = document.cookie;
+        let splitCookie = idCookie.split(""); 
+        let sliceID = splitCookie.slice(splitCookie.length-36,splitCookie.length);
+        info = sliceID.join("");
+        
         tableCheck();     
         displayUserPlants(info);
 });

@@ -4,7 +4,7 @@
 
 import Plant from "./plantClass.js";
 import {host, uHost} from './hostUrl.js';
-import { allowAdd } from "./userPlants.js";
+import { allowAdd } from "./UserPlants.js";
 
 
 let url = null;

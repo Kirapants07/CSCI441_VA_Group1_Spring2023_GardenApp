@@ -37,12 +37,12 @@ else{ //If authentication was successful
         // ESTABLISH SESSION VARIABLE WITH USERNAME 
         $adminDB = new Database("userAdmin"); //Establish DB
         $admin = $adminDB->connect(); //Get connection
-        $_SESSION["username"] = $formUserName; //Assisgn Username as session token
+     //   $_SESSION["username"] = $formUserName; //Assisgn Username as session token
         $userOb = new users($admin); 
         $userInfo = $userOb->read($formUserName);//Get information for user account
-        $_SESSION["userID"] = $userInfo[0]["id"]; //Assign user ID as session token
+      //  $_SESSION["userID"] = $userInfo[0]["id"]; //Assign user ID as session token
         setcookie("username", $formUserName,  time()+3600); //Set  username cookie that will expire in 1 hour
-        setcookie("userID", ($userInfo[0]["id"]),  time()+3600); //Set  user ID cookie that will expire in 1 hour
+        setcookie("userID", ($userInfo[0]["id"]),  time()+3600, '/'); //Set  user ID cookie that will expire in 1 hour
         header ("Location: ../../../Website/pages/userInfo.html");//Display user information page
     }
 
