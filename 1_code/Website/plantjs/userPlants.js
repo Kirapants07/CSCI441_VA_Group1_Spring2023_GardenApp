@@ -325,7 +325,7 @@ function updateDate(){
 
           //  if (!u) return; // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
-            const inDate = window.prompt("Add your new Date as MM-DD-YY", "01-01-2023");
+            const inDate = window.prompt("Add your new Date", "MM-DD-YYYY");
             
             const date = checkDate(inDate); 
             if (!date) return;
