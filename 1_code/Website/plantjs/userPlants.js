@@ -213,7 +213,7 @@ async function addPlant(id,date='0000-00-00')
 
       tableCheck();
       displayUserPlants(info);
-      alert("Plant Added!");
+    //   alert("Plant Added!");
       
 
 }
@@ -264,7 +264,7 @@ async function remPlant(id)
 
       tableCheck();
       displayUserPlants(info);
-      alert("Plant Removed!");
+    //   alert("Plant Removed!");
     
 }
 
@@ -297,7 +297,8 @@ function allowAdd(){
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
             
-            addPlant(e.target.id);
+            let todayDate = new Date().toISOString().slice(0, 10);
+            addPlant(e.target.id, todayDate);
     
         }); 
         
