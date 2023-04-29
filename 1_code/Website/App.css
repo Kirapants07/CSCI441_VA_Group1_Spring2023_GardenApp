@@ -16,22 +16,25 @@ main {
 li {
     display: inline;
   }
+  
 
 /*Navbar container*/
 nav {
     overflow: hidden;
     background-color: rgb(146, 212, 159);
+    display: flex;
 }
 
 /*Links inside the Navbar*/
 nav a {
     float: left;
-    font-size: 20px;
+    font-size: 30px;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 16px;
     text-decoration: none;
 }
+
 
 th, td{
     padding: 10px 10px 10px 10px;
@@ -49,19 +52,18 @@ th, td{
   width: 100%;
     align-items: "center";
     border-radius: 10px 10px 10px 10px;
-
   }
 
+button a {
+  text-decoration: none;
+  color: white;
+}
 /*container for account dropdown*/
 .dropdown {
     float: right;
     overflow: hidden;
 }
 
-button a {
-  text-decoration: none;
-  color: white;
-}
 /*button for account dropdown*/
 .dropdown .dropbtn {
     font-size: 30px;  
@@ -77,12 +79,6 @@ button a {
 /*on hover background color*/
 nav a:hover, .dropdown:hover .dropbtn {
     background-color: rgb(44, 114, 57);
-}
-
-.navRight {
-    float: right;
-    font-size: 30px;
-    padding: 17px 16px;
 }
 
 /*dropdown box (hidden unless on hover)*/
@@ -117,6 +113,10 @@ nav a:hover, .dropdown:hover .dropbtn {
 
 .search-container {
     display: inline-flex;
+    resize: vertical;
+    /* flex-grow: 1; */
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 /* Style the search box inside the navigation bar */
@@ -207,3 +207,49 @@ footer {
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
+
+/* Hide the link that should open and close the topnav on small screens */
+nav .icon {
+  display: none;
+}
+
+nav .mobileMenu {
+  display: none;
+}
+
+/* media queries */
+/* When the screen is less than 600 pixels wide, hide all links, except Home. Show menu icon */
+@media screen and (max-width: 1350px) {
+  nav a:not(:first-child) {display: none;}
+  nav div {display: none;}
+  nav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  nav *:not(:first-child) {display: none;}
+}
+
+@media screen and (max-width: 1350px) {
+  nav.responsive {position: relative;}
+  nav a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  nav {
+    display: block;
+  }
+  nav.responsive a{
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  nav.responsive form, nav input[type=text], nav .search-container button{
+    float: none;
+    display: flex;
+    text-align: left;
+  }
+}
