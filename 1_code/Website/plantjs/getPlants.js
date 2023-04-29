@@ -4,7 +4,7 @@
 
 import Plant from "./plantClass.js";
 import {host, uHost} from './hostUrl.js';
-import { allowAdd } from "./userPlants.js";
+import { allowAdd } from "./UserPlants.js";
 
 
 let url = null;
@@ -69,7 +69,7 @@ export default async function getPlants (plantName, zoneNum) {
     // create an array of plant objects
     for (let i = 0; i < jsonData.length; i++){
         const temp = jsonData[i];
-        const newPlant = new Plant(temp.id,temp.name,temp.type,temp.spacing,temp.germinationInformation,temp.harvestInformation);
+        const newPlant = new Plant(temp.id,temp.name,temp.type, null, temp.spacing,temp.germinationInformation,temp.harvestInformation);
         
         plantList.push(newPlant);   
     }
@@ -135,7 +135,7 @@ async function createPlantTable(plants)
     let tHarv = document.createElement("th");
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
-    btn.textContent = "";
+    btn.textContent = "Add";
 
     //append header elements
     title.appendChild(tName);

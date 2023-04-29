@@ -4,7 +4,7 @@
 
 export default class Plant {
 
-    constructor (plantId, plantName, plantType, plantDate = '0000-00-00', plantSpacing, germination, harvest, plantingInstructions = null) {
+    constructor (plantId, plantName, plantType, plantDate = '0000-00-00', plantSpacing, germination, harvest, plantingInstructions = null, pID = "0") {
         this.id = plantId;
         this.name = plantName;
         this.type = plantType;
@@ -13,8 +13,8 @@ export default class Plant {
         this.germ = germination;
         this.harv = harvest;
         this.ps = plantingInstructions;
+        this.pID = pID;
     }
-
     getId(){
         return this.id;
     }
@@ -24,10 +24,16 @@ export default class Plant {
     getType(){
         return this.type;
     }
+
     getDate(){
-        return this.date;
+
+        let splitDate = this.date.split(""); 
+       
+        const newDate = `${splitDate[5]}${splitDate[6]}-${splitDate[8]}${splitDate[9]}-${splitDate[0]}${splitDate[1]}${splitDate[2]}${splitDate[3]}`;
+        return newDate;
     }
-    getSpacing(){
+    getSpacing()
+    {
         return this.spacing;
     }
     getGermination(){
@@ -35,13 +41,11 @@ export default class Plant {
     }
     getHarvest(){
         return this.harv;
-
     }
-    getPS(){
-        if (!this.ps){
-            return "No instructions";
-        }
-        return this.ps;
+    
+    getpID(){
+        return this.pID
     }
+    
 
 }

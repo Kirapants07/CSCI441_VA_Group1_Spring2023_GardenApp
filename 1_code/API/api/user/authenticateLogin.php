@@ -33,14 +33,16 @@ if (!isset($_SESSION["username"]))//If Authentication failed
    include('../../../Website/pages/login.html?sig=IC');
 }
 else{ //If authentication was successful
-    header ("Location: ../../../Website/pages/userInfo.html");
+    //header ("Location: ../../../Website/pages/userInfo.html");
         // ESTABLISH SESSION VARIABLE WITH USERNAME 
         $adminDB = new Database("userAdmin"); //Establish DB
         $admin = $adminDB->connect(); //Get connection
-        $_SESSION["username"] = $formUserName; //Assisgn Username as session token
+     //   $_SESSION["username"] = $formUserName; //Assisgn Username as session token
         $userOb = new users($admin); 
-        $userInfo = $userOb->read($_SESSION["username"]);//Get information for user account
-        $_SESSION["userID"] = $userInfo["id"]; //Assign user ID as session token
+        $userInfo = $userOb->read($formUserName);//Get information for user account
+      //  $_SESSION["userID"] = $userInfo[0]["id"]; //Assign user ID as session token
+        setcookie("username", $formUserName,  time()+3600); //Set  username cookie that will expire in 1 hour
+        setcookie("userID", ($userInfo[0]["id"]),  time()+3600, '/'); //Set  user ID cookie that will expire in 1 hour
         header ("Location: ../../../Website/pages/userInfo.html");//Display user information page
     }
 
