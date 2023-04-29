@@ -61,6 +61,11 @@ async function getUserPlants()  {
 // Place the plants onto the website
 async function displayUserPlants (UID) {
 
+    if (!info){
+        window.confirm("You need to be logged in to user this feature!");
+        info = null;
+        return;
+    }
     // call the function to get the plants
     await getUserInfo(UID);
     // grab the main element
@@ -280,6 +285,11 @@ function tableCheck()
 
 function allowAdd(){
 
+    if (!info){
+        window.confirm("You need to be logged in to user this feature!");
+        info = null;
+        return;
+    }
     let addElements = document.getElementsByClassName("addButton material-icons md-36");
     
     console.log(addElements);
@@ -354,6 +364,7 @@ function removePlant(){
 document.getElementById("Tbutton").addEventListener('click', () => {   
         if (!document.cookie){
             window.confirm("You need to be logged in to user this feature!");
+            info = null;
             return;
         }
         
