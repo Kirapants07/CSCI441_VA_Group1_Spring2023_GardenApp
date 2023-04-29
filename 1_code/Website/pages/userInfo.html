@@ -73,8 +73,10 @@
         <h1>
             Account Information
         </h1>
-        <p>Username: </p>
-        <p>Email: </p>
+        <div>
+            <p id="username">Username: </p>
+            <!-- <p id="email">Email: </p> -->
+        </div>
 
         <!-- displays table of user's plants when Tbutton is clicked -->
         <div class="myPlants" id = "myPlants"></div>
@@ -85,6 +87,24 @@
         <a href="#">About</a><br>
         &copy 2023 Daniel Dietrich, Gavin Cyr, Kira Luethe, Richard Williams, & Todd Wood
     </p>
+
+    <script>
+        
+        let username = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("username="))
+            ?.split("=")[1];
+        // let email = document.cookie
+        //     .split("; ")
+        //     .find((row) => row.startsWith("email="))
+        //     ?.split("=")[1];
+        
+        const userp = document.getElementById("username");
+        // const emailp = document.getElementById("email");
+        userp.append(username);
+        // emailp.append(email);
+
+    </script>
 </footer>
 
 </body>
