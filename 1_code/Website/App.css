@@ -229,7 +229,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   nav *:not(:first-child) {display: none;}
 }
 
@@ -246,6 +246,11 @@ footer {
   nav.responsive a{
     float: none;
     display: block;
+    text-align: left;
+  }
+  nav.responsive form, nav input[type=text], nav .search-container button{
+    float: none;
+    display: flex;
     text-align: left;
   }
 }
