@@ -136,6 +136,7 @@ async function createPlantTable(plants)
     tHarv.textContent = "Harvest";
     let btn = document.createElement("th");
     btn.textContent = "Add";
+    // btn.setAttribute("class", "logged-in");
 
     //append header elements
     title.appendChild(tName);
@@ -144,6 +145,7 @@ async function createPlantTable(plants)
     title.appendChild(tGerm);
     title.appendChild(tHarv);
     title.appendChild(btn);
+
 
     // create table elements
     for(let i=0; i < plants.length; i++)
@@ -167,11 +169,9 @@ async function createPlantTable(plants)
         let harv = document.createElement("td");
         harv.textContent =  plant.getHarvest();
 
-
-
         let addBtnRow = document.createElement("td");
         addBtnRow.innerHTML = (`
-            <button alt="add"> 
+            <button alt="add" class="logged-in"> 
                 <span id="${plant.getId()}" class="addButton material-icons md-36">
                     add
                 </span>
@@ -187,8 +187,6 @@ async function createPlantTable(plants)
         // newRow.appendChild(addButton);
         newRow.appendChild(addBtnRow);
 
-
-        
     }
     return fragment;
 }
