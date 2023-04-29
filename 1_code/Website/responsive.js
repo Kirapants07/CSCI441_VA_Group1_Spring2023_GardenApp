@@ -2,7 +2,7 @@
 
 function responsive() {
   var x = document.querySelector("nav");
-  if (x.className === "") {
+  if (x.className === "" || x.className === "logged-in" || x.className === "logged-out") {
     x.className += " responsive";
   } else {
     x.className = "";
