@@ -28,17 +28,13 @@ nav {
 /*Links inside the Navbar*/
 nav a {
     float: left;
-    font-size: 20px;
+    font-size: 30px;
     color: white;
     text-align: center;
     padding: 16px 16px;
     text-decoration: none;
 }
 
-/* Hide the link that should open and close the topnav on small screens */
-nav .icon {
-  display: none;
-}
 
 th, td{
     padding: 10px 10px 10px 10px;
@@ -83,12 +79,6 @@ button a {
 /*on hover background color*/
 nav a:hover, .dropdown:hover .dropbtn {
     background-color: rgb(44, 114, 57);
-}
-
-.navRight {
-    float: right;
-    font-size: 30px;
-    padding: 17px 16px;
 }
 
 /*dropdown box (hidden unless on hover)*/
@@ -218,6 +208,15 @@ footer {
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
+/* Hide the link that should open and close the topnav on small screens */
+nav .icon {
+  display: none;
+}
+
+nav .mobileMenu {
+  display: none;
+}
+
 /* media queries */
 /* When the screen is less than 600 pixels wide, hide all links, except Home. Show menu icon */
 @media screen and (max-width: 1350px) {
@@ -229,7 +228,7 @@ footer {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 950px) {
   nav *:not(:first-child) {display: none;}
 }
 

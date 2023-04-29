@@ -10,12 +10,11 @@
     <link rel="stylesheet" type="text/css" href="App.css" />
     <script type="module" src="./plantjs/getPlants.js"></script>
     <script type="module" src="./zipcodejs/getZipcode.js"></script>
-    <!-- <script type="module" src="./responsive.js"></script> -->
+    <script src="responsive.js"></script>
 </head>
 <body>
     <header>
-        <!-- NEED TO MAKE NAV BAR RESPONSIVE FOR MOBILE -->
-        <nav id="nav">
+        <nav>
             <!-- home button -->
             <a href="index.html">
                 <span class="material-icons md-36">
@@ -51,23 +50,19 @@
                     <span class="material-icons md-24">expand_more</span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="UserAuth/signOut.php">Sign Out</a>
-                    <a href="pages/userInfo.html">Account Information</a>
+                    <a href="./pages/login.html" class="logged-out">Log In</a>
+                    <a href="./pages/sign-up.html" class="logged-out">Sign Up</a>
+                    <a href="UserAuth/signOut.php" class="logged-in" >Sign Out</a>
+                    <a href="pages/userInfo.html" class="logged-in">Account Information</a>
                 </div>
             </div>
-
-            <a href="./pages/login.html" class="logged-out navRight">
-                Log In
-            </a>
-
-            <a href="./pages/sign-up.html" class="logged-out navRight">
-                Sign Up
-            </a>
 
             <!-- mobile hamberger view -->
             <a href="javascript:void(0);" class="icon" onclick="responsive()">
                 <i id ="menu" class="material-icons md-36">menu</i>
             </a>
+            <a href="UserAuth/signOut.php" class="mobileMenu">Sign Out</a>
+            <a href="pages/userInfo.html" class="mobileMenu">Account Information</a>
         </nav>
     </header>
 
@@ -94,16 +89,6 @@
 
 <!-- loads only items in class "logged-in" or "logged-out" -->
 <script src="./ui.js"></script>
-<script>
-    function responsive() {
-    var x = document.querySelector("nav");
-    if (x.className === "") {
-      x.className += " responsive";
-    } else {
-      x.className = "";
-    }
-  }
-</script>
 
 </body>
 </html>

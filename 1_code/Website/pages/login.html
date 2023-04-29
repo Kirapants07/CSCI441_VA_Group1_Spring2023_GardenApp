@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../App.css" />
     <script type="module" src="../plantjs/getPlants.js"></script> 
+    <script src="../responsive.js"></script>
 </head>
 <body>
     <header>
@@ -49,17 +50,16 @@
                     <span class="material-icons md-24">expand_more</span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="../UserAuth/signOut.php">Sign Out</a>
-                    <a href="./userInfo.html">Account Information</a>
+                    <a href="./login.html" class="logged-out">Log In</a>
+                    <a href="./sign-up.html" class="logged-out">Sign Up</a>
+                    <a href="../UserAuth/signOut.php" class="logged-in">Sign Out</a>
+                    <a href="./userInfo.html" class="logged-in">Account Information</a>
                 </div>
             </div>
 
-            <a href="./login.html" class="logged-out navRight">
-                Log In
-            </a>
-
-            <a href="./sign-up.html" class="logged-out navRight">
-                Sign Up
+            <!-- mobile hamberger view -->
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i id ="menu" class="material-icons md-36">menu</i>
             </a>
 
         </nav>
