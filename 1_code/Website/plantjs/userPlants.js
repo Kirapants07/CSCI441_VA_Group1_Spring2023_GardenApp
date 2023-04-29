@@ -285,14 +285,8 @@ function tableCheck()
 
 function allowAdd(){
 
-    if (!info){
-        window.confirm("You need to be logged in to user this feature!");
-        info = null;
-        return;
-    }
     let addElements = document.getElementsByClassName("addButton material-icons md-36");
-    
-    console.log(addElements);
+
     for (var i=0; i< addElements.length; i++) {
         addElements[i].addEventListener("click", (e) => {
 
