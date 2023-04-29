@@ -10,10 +10,10 @@
     <link rel="stylesheet" type="text/css" href="App.css" />
     <script type="module" src="./plantjs/getPlants.js"></script>
     <script type="module" src="./zipcodejs/getZipcode.js"></script>
+    <script src="responsive.js"></script>
 </head>
 <body>
     <header>
-        <!-- NEED TO MAKE NAV BAR RESPONSIVE FOR MOBILE -->
         <nav>
             <!-- home button -->
             <a href="index.html">
@@ -45,24 +45,24 @@
             <!-- Account Dropdown -->
             <div class="dropdown logged-in">
                 <button class="dropbtn">
-                    <!-- <i id ="accountcircle" class="material-icons md-36">account_circle</i> -->
+                    <i id ="accountcircle" class="material-icons md-36">account_circle</i>
                     Account
                     <span class="material-icons md-24">expand_more</span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="UserAuth/signOut.php">Sign Out</a>
-                    <a href="pages/userInfo.html">Account Information</a>
+                    <a href="./pages/login.html" class="logged-out">Log In</a>
+                    <a href="./pages/sign-up.html" class="logged-out">Sign Up</a>
+                    <a href="UserAuth/signOut.php" class="logged-in" >Sign Out</a>
+                    <a href="pages/userInfo.html" class="logged-in">Account Information</a>
                 </div>
             </div>
 
-            <a href="./pages/login.html" class="logged-out navRight">
-                Log In
+            <!-- mobile hamberger view -->
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i id ="menu" class="material-icons md-36">menu</i>
             </a>
-
-            <a href="./pages/sign-up.html" class="logged-out navRight">
-                Sign Up
-            </a>
-
+            <a href="UserAuth/signOut.php" class="mobileMenu">Sign Out</a>
+            <a href="pages/userInfo.html" class="mobileMenu">Account Information</a>
         </nav>
     </header>
 
@@ -89,5 +89,6 @@
 
 <!-- loads only items in class "logged-in" or "logged-out" -->
 <script src="./ui.js"></script>
+
 </body>
 </html>
