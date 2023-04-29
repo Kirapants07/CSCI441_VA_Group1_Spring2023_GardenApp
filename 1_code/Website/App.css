@@ -56,19 +56,18 @@ th, td{
   width: 100%;
     align-items: "center";
     border-radius: 10px 10px 10px 10px;
-
   }
 
+button a {
+  text-decoration: none;
+  color: white;
+}
 /*container for account dropdown*/
 .dropdown {
     float: right;
     overflow: hidden;
 }
 
-button a {
-  text-decoration: none;
-  color: white;
-}
 /*button for account dropdown*/
 .dropdown .dropbtn {
     font-size: 30px;  
@@ -234,14 +233,17 @@ footer {
   nav *:not(:first-child) {display: none;}
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1350px) {
   nav.responsive {position: relative;}
-  nav.responsive a.icon {
+  nav a.icon {
     position: absolute;
     right: 0;
     top: 0;
   }
-  nav.responsive {
+  nav {
+    display: block;
+  }
+  nav.responsive a{
     float: none;
     display: block;
     text-align: left;
