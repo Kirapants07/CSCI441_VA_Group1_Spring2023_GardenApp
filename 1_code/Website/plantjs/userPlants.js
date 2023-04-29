@@ -119,7 +119,7 @@ async function createPlantTable(plants)
     let btn = document.createElement("th");
     btn.textContent = "Remove";
     let ubtn = document.createElement("th");
-    ubtn.textContent = "Add / Update Date";
+    ubtn.textContent = "Update Date";
 
     //append header elements
     title.appendChild(tName);
@@ -209,7 +209,7 @@ async function addPlant(id,date='0000-00-00')
         body: JSON.stringify(data),
       });
 
-      console.log(response);
+    
 
       tableCheck();
       displayUserPlants(info);
@@ -306,11 +306,12 @@ function allowAdd(){
 }
 function checkDate(date) {
     
-    const check = /^\d{2}\-\d{2}\-\d{4}$/;
+    const check = /^\d{2}\-|\/\d{2}\-|\/\d{4}$/;
+     
     const result = check.test(date);
     if (!result)
     {
-        window.confirm("The date format is invalid.  It must be MM-DD-YYYY");
+        window.confirm("The date format is invalid.  It must be MM-DD-YYYY or MM/DD/YYYY");
         return 0;
     }
     let splitDate = date.split(""); 
