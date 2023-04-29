@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="App.css" />
     <script type="module" src="./plantjs/getPlants.js"></script>
     <script type="module" src="./zipcodejs/getZipcode.js"></script>
+    <!-- <script type="module" src="./responsive.js"></script> -->
 </head>
 <body>
     <header>
@@ -45,7 +46,7 @@
             <!-- Account Dropdown -->
             <div class="dropdown logged-in">
                 <button class="dropbtn">
-                    <!-- <i id ="accountcircle" class="material-icons md-36">account_circle</i> -->
+                    <i id ="accountcircle" class="material-icons md-36">account_circle</i>
                     Account
                     <span class="material-icons md-24">expand_more</span>
                 </button>
@@ -63,6 +64,10 @@
                 Sign Up
             </a>
 
+            <!-- mobile hamberger view -->
+            <a href="javascript:void(0);" class="icon" onclick="responsive()">
+                <i id ="menu" class="material-icons md-36">menu</i>
+            </a>
         </nav>
     </header>
 
@@ -89,5 +94,16 @@
 
 <!-- loads only items in class "logged-in" or "logged-out" -->
 <script src="./ui.js"></script>
+<script>
+    function responsive() {
+    var x = document.querySelector("nav");
+    if (x.className === "") {
+      x.className += " responsive";
+    } else {
+      x.className = "";
+    }
+  }
+</script>
+
 </body>
 </html>
