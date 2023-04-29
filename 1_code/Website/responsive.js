@@ -2,7 +2,7 @@
 
 function responsive() {
   var x = document.querySelector("nav");
-  if (x.className === "" || x.className === "logged-in" || x.className === "logged-out") {
+  if (x.className === "") {
     x.className += " responsive";
   } else {
     x.className = "";
@@ -19,11 +19,11 @@ addEventListener("DOMContentLoaded", () => {
   //check if user is logged in
   if (document.cookie){
     loggedOutLinks.forEach((item) => (item.style.display = "none"));
-    loggedInLinks.forEach((item) => (item.style.display = "block"));
+    // loggedInLinks.forEach((item) => (item.style.display = "block"));
   }
   //if user is not logged in
   else {
-    loggedOutLinks.forEach((item) => (item.style.display = "block"));
+    // loggedOutLinks.forEach((item) => (item.style.display = "block"));
     loggedInLinks.forEach((item) => (item.style.display = "none"));
   }
 
