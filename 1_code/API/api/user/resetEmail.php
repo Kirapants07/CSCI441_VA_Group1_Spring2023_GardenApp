@@ -61,7 +61,7 @@ else{
         $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
         $mail->Port = 465; // set the SMTP port for the GMAIL server
         $mail->Username = "noreply.gardenapp.675@gmail.com"; // GMAIL username
-        $mail->Password = "rnmbblhpnicxpeui"; // GMAIL password
+        $mail->Password = ""; // GMAIL password
     
     
     //Typical mail data
