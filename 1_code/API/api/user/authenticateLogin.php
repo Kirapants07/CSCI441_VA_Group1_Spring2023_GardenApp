@@ -42,7 +42,7 @@ else{ //If authentication was successful
         $userInfo = $userOb->read($formUserName);//Get information for user account
       //  $_SESSION["userID"] = $userInfo[0]["id"]; //Assign user ID as session token
         setcookie("username", ($userInfo[0]["userName"]),  time()+3600, '/'); //Set  username cookie that will expire in 1 hour
-        setcookie("email", ($userInfo[0]["email"]),  time()+3600, '/'); //Set  username cookie that will expire in 1 hou
+        // setcookie("email", ($userInfo[0]["email"]),  time()+3600, '/'); //Set  username cookie that will expire in 1 hou
         setcookie("userID", ($userInfo[0]["id"]),  time()+3600, '/'); //Set  user ID cookie that will expire in 1 hour
         header ("Location: ../../../Website/pages/userInfo.html");//Display user information page
     }

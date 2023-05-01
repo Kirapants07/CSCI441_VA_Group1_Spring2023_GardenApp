@@ -1,6 +1,6 @@
 //userPlants
 //Todd M. Wood
-//Gets and Displays Plants
+//Restores and saves users plants
 
 import Plant from "./plantClass.js";
 import {uHost, host} from './hostUrl.js';
@@ -18,8 +18,8 @@ async function getUserInfo(UID) {
     let url = uHost(UID);
     let userResp = await fetch(url);
 
-    userData = await userResp.json();
-   
+    userData = await userResp.json(); // get the user data
+   // if no user data
     if (userData.message){
         tableCheck();
         const div = document.createElement("div");
@@ -30,6 +30,7 @@ async function getUserInfo(UID) {
         main.prepend(div);
         return false
     }
+    // if data found call to get user plants
     await getUserPlants();
 
 }
@@ -49,6 +50,7 @@ async function getUserPlants()  {
         uPlantList.push(newPlant);   
                
     }
+    // display users plants
     const div = document.createElement("div");
     div.setAttribute("id", "noUFoundDiv");
     const success = document.createTextNode("Your plants:");
@@ -60,7 +62,7 @@ async function getUserPlants()  {
 
 // Place the plants onto the website
 async function displayUserPlants (UID) {
-
+    // make sure the user is logged in
     if (!info){
         window.confirm("You need to be logged in to user this feature!");
         info = null;
@@ -79,8 +81,8 @@ async function displayUserPlants (UID) {
         main.append(element);
     }
 
-    removePlant();
-    updateDate();
+    removePlant(); // fire removeplant listener
+    updateDate(); // fire update plant listener
     return element;
 
 }
@@ -189,13 +191,16 @@ async function createPlantTable(plants)
     return fragment;
 }
 
+//adds a plant
 async function addPlant(id,date='0000-00-00')
 {
+    // check for an ID
     let UID = null;
     if (!userData || userData.message) UID = info;
     else UID = userData[0].userId;
-
+    // get the house
     url = uHost(null);
+    // create data element
     const data = {
         "data": [{
             userId: UID,
@@ -203,7 +208,7 @@ async function addPlant(id,date='0000-00-00')
             datePlanted: date
         }]
     }
-
+    // send data to api
     const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -211,16 +216,17 @@ async function addPlant(id,date='0000-00-00')
 
     
 
-      tableCheck();
-      displayUserPlants(info);
-    //   alert("Plant Added!");
+      tableCheck(); // clear the table
+      displayUserPlants(info); // repopulate the table
       
 
 }
+// updates the plant date
 async function updatePlant(iD,date)
 {
-
+    // get the url
     url = uHost(null);
+    // package data
     const data = {
         "data": [{
             id: iD,
@@ -228,6 +234,7 @@ async function updatePlant(iD,date)
         }]
     }
     
+    // send data to api
     const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(data),
@@ -235,39 +242,45 @@ async function updatePlant(iD,date)
 
 
 
-      tableCheck();
-      displayUserPlants(info);
+      tableCheck(); // clear the table
+      displayUserPlants(info); // repop the table
       
 
 }
+// remove a plant
 async function remPlant(id)
 {
+    // create a variable for deleted id
     let delId = null;
 
+    // find the id in the list
     userData.forEach((uId)=> {
         if (uId.plantId===id){
             delId = uId.id;
         }
     });
-
+    // get url
     url = uHost(null)
+    // set data
     const data = 
    {
         "data": [{
             id: delId
         }]
     }
+    // send to api
     const response = await fetch(url, {
         method: "DELETE",
         body: JSON.stringify(data),
       });
 
-      tableCheck();
-      displayUserPlants(info);
-    //   alert("Plant Removed!");
+      tableCheck(); // clear table
+      displayUserPlants(info); // repop table
+
     
 }
 
+// clearing function for table
 function tableCheck()
 {
     uPlantList.length = 0;
@@ -283,13 +296,15 @@ function tableCheck()
     }
 }
 
+// event lister for add buttons
 function allowAdd(){
-
+    // grab the add buttons
     let addElements = document.getElementsByClassName("addButton material-icons md-36");
-
+    // set listerns for all add buttons
     for (var i=0; i< addElements.length; i++) {
         addElements[i].addEventListener("click", (e) => {
-
+        
+        // don't allow a non logged in user to use add
          if (!document.cookie) {
             window.confirm("You need to be logged in to use this feature");
             return;
@@ -297,6 +312,7 @@ function allowAdd(){
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
             
+            // grab the ID and date
             let todayDate = new Date().toISOString().slice(0, 10);
             addPlant(e.target.id, todayDate);
     
@@ -305,77 +321,86 @@ function allowAdd(){
     }
 
 }
+// check the date and set it for storage
 function checkDate(date) {
     
+    // regex date check
     const check = /^\d{2}\-|\/\d{2}\-|\/\d{4}$/;
      
+    // make sure the date is in the format needed
     const result = check.test(date);
     if (!result)
     {
         window.confirm("The date format is invalid.  It must be MM-DD-YYYY or MM/DD/YYYY");
         return 0;
     }
+    // refactor the date for storage
     let splitDate = date.split(""); 
-       
     const newDate = `${splitDate[6]}${splitDate[7]}${splitDate[8]}${splitDate[9]}-${splitDate[0]}${splitDate[1]}-${splitDate[3]}${splitDate[4]}`;
     
-    return newDate;
+    return newDate; // send the refactored date to the calling function
 }
 
+//update with a new date event listener
 function updateDate(){
 
+    // grab all update icons
     let upDateElements = document.getElementsByClassName("udButton material-icons md-36");
 
+    // set an event listener
     for (var i=0; i< upDateElements.length; i++) {
         upDateElements[i].addEventListener("click", (e) => {
 
-          //  if (!u) return; // no userdata so back out without trying to do anything
             e.preventDefault(); // prevent default error
-            const inDate = window.prompt("Add Your New Date", "MM-DD-YYYY");
+            const inDate = window.prompt("Add Your New Date", "MM-DD-YYYY"); // prompt for a date
             
-            const date = checkDate(inDate); 
+            const date = checkDate(inDate); // check the date
             if (!date) return;
-                
+            // send the id and the daet    
             updatePlant(e.target.id, date);
         }); 
     }
 }
 
+// remove plant listener
 function removePlant(){
+    // grab all remove buttons
     let remElements = document.getElementsByClassName("remButton material-icons md-36");
 
+    // set the listener for each button
     for (var i=0; i<remElements.length; i++) {
         remElements[i].addEventListener("click", (e) => {
 
             e.preventDefault(); // prevent default error
             uPlantList.length = 0; // reset plantlist
             
-            remPlant(e.target.id); // get user value
+            remPlant(e.target.id); // get user value and send to the remove functions
     
         }); 
     }
     
 }
-
+// add listener for My plants selection
 document.getElementById("Tbutton").addEventListener('click', () => {   
+        // Make sure the user is logged in. If not message and return
         if (!document.cookie){
-            window.confirm("You need to be logged in to user this feature!");
+            window.confirm("You need to be logged in to use this feature!");
             info = null;
             return;
         }
-        
+        // if logged in get the user ID by splicing off the cookie
         const idCookie = document.cookie;
         let splitCookie = idCookie.split(""); 
         let sliceID = splitCookie.slice(splitCookie.length-36,splitCookie.length);
         info = sliceID.join("");
         
-        tableCheck();     
-        displayUserPlants(info);
+        tableCheck();  // clear any tables  
+        displayUserPlants(info); // display the users plants
 });
 
 
 
-export{allowAdd, displayUserPlants}
+export{allowAdd, displayUserPlants} // export
 
 
 
