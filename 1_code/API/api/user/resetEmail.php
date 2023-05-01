@@ -1,7 +1,7 @@
 <?php
 
 /*
-*Author: Daniel Dietrich
+* Author: Daniel Dietrich
 * This file generates a password reset email using data collected from the 
 * resetPassword.html form.
 * The email utilizes the PHPMailer open source library to allow the application to
@@ -40,8 +40,8 @@ if($user_info == null) //If no account is found for the given email
     die(); //Prevent futher access
 }
 else{
-    $encodedUserID = base64_encode($user_info[0]['id']);
-    $username = $user_info[0]['userName'];
+    $encodedUserID = base64_encode($user_info[0]['id']); //Encode user ID
+    $username = $user_info[0]['userName']; //Retrieve username
     
     //Create email
     $mail_body = '
@@ -49,24 +49,23 @@ else{
     
     Please click the link below to reset your password:
     http://localhost/cSCI441_VA_Group1_Spring2023_GardenApp/1_code/Website/pages/setPassword.html?eid='.$encodedUserID.'';
-    $Subject = "Garden Planner: Password Reset";
+    $Subject = "Garden Planner: Password Reset"; //Set Email Subject
 
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer(true); //Connect to PHP Mailer
 
     //Send mail using gmail
     
-        $mail->IsSMTP(); // telling the class to use SMTP
-        $mail->SMTPAuth = true; // enable SMTP authentication
-        $mail->SMTPSecure = "ssl"; // sets the prefix to the servier
-        $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
-        $mail->Port = 465; // set the SMTP port for the GMAIL server
-        $mail->Username = "noreply.gardenapp.675@gmail.com"; // GMAIL username
-        $mail->Password = ""; // GMAIL password
+        $mail->IsSMTP(); //Set to use SMTP
+        $mail->SMTPAuth = true; //Enable SMTP Auth
+        $mail->SMTPSecure = "ssl"; //Set prefix to the servier
+        $mail->Host = "smtp.gmail.com"; //Set GMAIL as the SMTP server
+        $mail->Port = 465; //Set the SMTP port
+        $mail->Username = "noreply.gardenapp.675va@gmail.com"; //Email
+        $mail->Password = ""; //Password
     
     
-    //Typical mail data
+    //Set email information
     $mail->AddAddress($email, $username);
-    
     $mail->Subject = $Subject;
     $mail->Body = $mail_body;
 
